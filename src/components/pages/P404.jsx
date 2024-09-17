@@ -9,7 +9,7 @@ export default class P404 extends Component{
     
     render(){
         return(
-          <div className="wrapper">
+          <div className="wrapper m-0">
             <div className="error">
               <div className="number">4</div>
               <div className="illustration">
@@ -32,7 +32,7 @@ export default class P404 extends Component{
             </div>
             <div className= "text">Oops. The page you're looking
             for doesn't exist. </div>
-            <a className="button" href="/">Back Home </a>
+            <a className="button rounded-lg hover:text-white" href="/">Back Home </a>
         </div>
       
       )

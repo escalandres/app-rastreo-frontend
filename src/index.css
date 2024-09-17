@@ -5,12 +5,18 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: var(--bg-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Colores */
+  --dark-color: #242424;
+  --light-color: #f9fafb;
+  --dark-blue-color: #213547;
+  --bg-color: var(--dark-color);
 }
 
 a {
@@ -28,6 +34,16 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+body.light {
+  color: var(--dark-color);
+  background-color: var(--light-color);
+}
+
+body.dark {
+  color: var(--light-color);
+  background-color: var(--dark-color);
 }
 
 h1 {
@@ -56,13 +72,26 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--dark-blue-color);
+    background-color: var(--light-color);
   }
   a:hover {
     color: #747bff;
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: var(--light-color);
+    background-color: var(--dark-color);
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #213547;
   }
 }

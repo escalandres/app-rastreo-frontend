@@ -17,8 +17,9 @@ const router = createBrowserRouter(
       errorElement: <P404/>
     },
     {
-      path: "/signup",
-      element: <SignUp/>
+      path: "/registro",
+      element: <SignUp/>,
+      errorElement: <P404/>
     },
     // {
     //   path: "/change-password",
@@ -34,7 +35,8 @@ const router = createBrowserRouter(
     // },
     {
       path: "/page-not-found",
-      element: <P404/>
+      element: <P404/>,
+      errorElement: <P404/>
     },
   ]
 );

@@ -43,7 +43,7 @@ const SignUp = () => {
 
     return (
         <main className="w-full h-screen flex flex-col items-center justify-center bg-gray-10 dark:bg-gray-50 sm:px-4">
-            <div className="w-full space-y-6 text-gray-600 sm:max-w-md md:max-w-lg">
+            <div className="w-full space-y-6 text-gray-600 sm:max-w-md md:max-w-lg lg:max-w-2xl">
                 <div className="bg-white shadow p-4 py-6 space-y-8 sm:p-6 sm:rounded-lg">
                     <div className="text-center">
                         <img src="/icons/dark-favicon.svg" width={150} className="mx-auto" />
@@ -96,7 +96,7 @@ const SignUp = () => {
                     </div>
                     <div className="relative">
                         <span className="block w-full h-px bg-gray-300"></span>
-                        <p className="inline-block w-fit text-sm bg-white px-2 absolute -top-2 inset-x-0 mx-auto">Or continue with</p>
+                        <p className="inline-block w-fit text-sm bg-white px-2 absolute -top-2 inset-x-0 mx-auto">O continua con</p>
                     </div>
                     <form
                         onSubmit={handleSignUp}
@@ -132,7 +132,7 @@ const SignUp = () => {
                         </div>
                         <div className="text-left">
                             <label className="font-medium">
-                                Email
+                                Correo electrónico
                             </label>
                             <input
                                 type="email"
@@ -146,7 +146,7 @@ const SignUp = () => {
                         <div className='grid grid-cols-2 gap-x-4'>
                             <div className="flex-auto text-left">
                                 <label className="font-medium">
-                                    Password
+                                    Contraseña
                                 </label>
                                 <input
                                     type="password"
@@ -173,15 +173,15 @@ const SignUp = () => {
                         </div>
                         
                         <button
-                            className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+                            className="w-full my-4 px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
                             type="submit"
                         >
-                            Sign in
+                            Registrarse
                         </button>
                     </form>
-                    <div className="text-center">
-                        <a href="javascript:void(0)" className="hover:text-indigo-600">Forgot password?</a>
-                    </div>
+                    {/* <div className="text-center">
+                        <a href="/forgot-password" className="hover:text-indigo-600">Forgot password?</a>
+                    </div> */}
                 </div>
             </div>
         </main>

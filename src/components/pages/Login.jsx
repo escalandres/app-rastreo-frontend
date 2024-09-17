@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Navbar from '../Navbar';
 const Login = () => {
 
     const [email, setEmail] = useState('');
@@ -39,14 +39,16 @@ const Login = () => {
 
 
     return (
+        <>
+        {/* <Navbar/> */}
         <main className="w-full h-screen flex flex-col items-center justify-center bg-gray-10 dark:bg-gray-50 sm:px-4">
             <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
                 <div className="bg-white shadow p-4 py-6 space-y-8 sm:p-6 sm:rounded-lg">
                     <div className="text-center">
                         <img src="/icons/dark-favicon.svg" width={150} className="mx-auto" />
                         <div className="mt-5 space-y-2">
-                            <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
-                            <p className="">Dont have an account? <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a></p>
+                            <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Inicia sesión</h3>
+                            <p className="">¿No tienes una cuenta? <a href="/registro" className="font-medium text-indigo-600 hover:text-indigo-500">Regístrate gratis</a></p>
                         </div>
                     </div>
                     <div className="grid grid-cols-3 gap-x-3">
@@ -92,7 +94,7 @@ const Login = () => {
                     </div>
                     <div className="relative">
                         <span className="block w-full h-px bg-gray-300"></span>
-                        <p className="inline-block w-fit text-sm bg-white px-2 absolute -top-2 inset-x-0 mx-auto">Or continue with</p>
+                        <p className="inline-block w-fit text-sm bg-white px-2 absolute -top-2 inset-x-0 mx-auto">O continua con</p>
                     </div>
                     <form
                         onSubmit={handleLogin}
@@ -100,7 +102,7 @@ const Login = () => {
                     >
                         <div className="text-left">
                             <label className="font-medium">
-                                Email
+                                Correo electrónico
                             </label>
                             <input
                                 type="email"
@@ -113,7 +115,7 @@ const Login = () => {
                         </div>
                         <div className="text-left">
                             <label className="font-medium">
-                                Password
+                                Contraseña
                             </label>
                             <input
                                 type="password"
@@ -128,15 +130,16 @@ const Login = () => {
                             className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
                             type="submit"
                         >
-                            Sign in
+                            Iniciar sesión
                         </button>
                     </form>
-                </div>
-                <div className="text-center">
-                    <a href="javascript:void(0)" className="hover:text-indigo-600">Forgot password?</a>
+                    <div className="text-center">
+                        <a href="/recuperacion" className="hover:text-indigo-600">¿Olvidaste tu contraseña?</a>
+                    </div>
                 </div>
             </div>
         </main>
+        </>
     )
 }
 

@@ -15,7 +15,7 @@ const SignUp = () => {
 
         try {
             // Simulación de la solicitud de autenticación al servidor
-            const response = await fetch('http://localhost:5322/user/SignUp', {
+            const response = await fetch('http://localhost:5322/user/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

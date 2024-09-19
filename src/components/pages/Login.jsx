@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
 import Navbar from '../Navbar';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+
+function setAuthCookie(token, dias) {
+    // Establecer la fecha de expiración
+    const fecha = new Date();
+    fecha.setTime(fecha.getTime() + (dias * 24 * 60 * 60 * 1000)); // Convertir días a milisegundos
+    const expiracion = "expires=" + fecha.toUTCString();
+    
+    // Crear la cookie de autenticación con los atributos de seguridad
+    document.cookie = `authToken=${token};${expiracion};path=/;SameSite=Strict;Secure;HttpOnly`;
+}
+
 const Login = () => {
 
     const [email, setEmail] = useState('');
@@ -17,11 +30,11 @@ const Login = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email:email.trim(), password:password.trim() }),
             });
 
             if (!response.ok) {
-                throw new Error('Error al iniciar sesión');
+                toast.error('Error al iniciar sesión');
             }
 
             const data = await response.json();
@@ -29,8 +42,13 @@ const Login = () => {
             console.log('Usuario autenticado:', data);
 
             // Guardar el token o información del usuario en el almacenamiento local o en el estado
+            // Uso de la función para crear una cookie que expire en 7 días
+            // Uso de la función para crear una cookie de autenticación que expire en 7 días
+            // setAuthCookie(data.token, 1);
             localStorage.setItem('token', data.token); // Ejemplo
             // Redireccionar o actualizar el estado de la aplicación
+            alert('Usuario autenticado: ' + data.email);
+            window.location.href = '/app'; // Ejemplo
         } catch (error) {
             setError(error.message);
         }

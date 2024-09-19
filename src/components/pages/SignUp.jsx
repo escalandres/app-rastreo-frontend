@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
 
@@ -14,26 +15,33 @@ const SignUp = () => {
         setError(null); // Resetear errores previos
 
         try {
-            // Simulación de la solicitud de autenticación al servidor
-            const response = await fetch('http://localhost:5322/user/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, lastname, email, password }),
-            });
 
-            if (!response.ok) {
-                throw new Error('Error al iniciar sesión');
+            if (password !== confirm) {
+                toast.error('Las contraseñas no coinciden');
             }
+            else{
+                // Simulación de la solicitud de autenticación al servidor
+                const response = await fetch('http://localhost:5322/user/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name: name.trim(), lastname: lastname.trim(), email: email.trim(), password: password.trim() }),
+                });
 
-            const data = await response.json();
-            // Manejo de la respuesta exitosa
-            console.log('Usuario autenticado:', data);
+                if (!response.ok) {
+                    toast.error('Error al iniciar sesión');
+                }
 
-            // Guardar el token o información del usuario en el almacenamiento local o en el estado
-            localStorage.setItem('token', data.token); // Ejemplo
-            // Redireccionar o actualizar el estado de la aplicación
+                const data = await response.json();
+                // Manejo de la respuesta exitosa
+                console.log('Usuario autenticado:', data);
+
+                // Guardar el token o información del usuario en el almacenamiento local o en el estado
+                localStorage.setItem('token', data.token); // Ejemplo
+                // Redireccionar o actualizar el estado de la aplicación
+                window.location.href = '/app';
+            }
         } catch (error) {
             setError(error.message);
         }

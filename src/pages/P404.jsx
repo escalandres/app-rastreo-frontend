@@ -1,7 +1,7 @@
 // import Alert from 'react-bootstrap/Alert';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
-import '../css/404.css';
+import './css/404.css';
 export default class P404 extends Component{
   componentDidMount() {
     document.title = "404 error - Page not found";

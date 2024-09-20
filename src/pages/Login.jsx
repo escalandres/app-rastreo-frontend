@@ -1,17 +1,5 @@
-import React, { useState } from 'react';
-import Navbar from '../Navbar';
-import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
-
-function setAuthCookie(token, dias) {
-    // Establecer la fecha de expiración
-    const fecha = new Date();
-    fecha.setTime(fecha.getTime() + (dias * 24 * 60 * 60 * 1000)); // Convertir días a milisegundos
-    const expiracion = "expires=" + fecha.toUTCString();
-    
-    // Crear la cookie de autenticación con los atributos de seguridad
-    document.cookie = `authToken=${token};${expiracion};path=/;SameSite=Strict;Secure;HttpOnly`;
-}
+import { useState } from 'react';
+import { alerta } from './js/general';
 
 const Login = () => {
 
@@ -34,7 +22,7 @@ const Login = () => {
             });
 
             if (!response.ok) {
-                toast.error('Error al iniciar sesión');
+                alerta.error('Error al iniciar sesión');
             }
 
             const data = await response.json();
@@ -58,7 +46,6 @@ const Login = () => {
 
     return (
         <>
-        {/* <Navbar/> */}
         <main className="w-full h-screen flex flex-col items-center justify-center bg-gray-10 dark:bg-gray-50 sm:px-4">
             <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
                 <div className="bg-white shadow p-4 py-6 space-y-8 sm:p-6 sm:rounded-lg">

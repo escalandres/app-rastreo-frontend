@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { alerta } from './js/general';
 
 const SignUp = () => {
 
@@ -15,12 +15,11 @@ const SignUp = () => {
         setError(null); // Resetear errores previos
 
         try {
-
             if (password !== confirm) {
-                toast.error('Las contraseñas no coinciden');
+                alerta.error('Las contraseñas no coinciden');
             }
+            
             else{
-                // Simulación de la solicitud de autenticación al servidor
                 const response = await fetch('http://localhost:5322/user/signup', {
                     method: 'POST',
                     headers: {
@@ -30,15 +29,14 @@ const SignUp = () => {
                 });
 
                 if (!response.ok) {
-                    toast.error('Error al iniciar sesión');
+                    alerta.error('Error al iniciar sesión');
                 }
 
                 const data = await response.json();
-                // Manejo de la respuesta exitosa
-                console.log('Usuario autenticado:', data);
 
                 // Guardar el token o información del usuario en el almacenamiento local o en el estado
-                localStorage.setItem('token', data.token); // Ejemplo
+                localStorage.setItem('token', data.token);
+
                 // Redireccionar o actualizar el estado de la aplicación
                 window.location.href = '/app';
             }

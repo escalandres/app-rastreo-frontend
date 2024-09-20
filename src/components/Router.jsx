@@ -1,10 +1,10 @@
 // router.js
 import { createBrowserRouter } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import P404 from './pages/P404';
-import SignUp from './pages/SignUp';
-import ProtectedRoute from '../ProtectedRoute';
+import Home from '../pages/Home';
+import Login from '../pages/Login';
+import P404 from '../pages/P404';
+import SignUp from '../pages/SignUp';
+import ProtectedRoute from './ProtectedRoute';
 
 const Router = createBrowserRouter(
     [

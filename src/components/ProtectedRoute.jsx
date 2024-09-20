@@ -1,8 +1,7 @@
 // ProtectedRoute.jsx
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
-import { isAuthenticated } from './auth';
+import { isAuthenticated } from '../auth';
 
 const ProtectedRoute = ({ children }) => {
     if (!isAuthenticated()) {

@@ -1,5 +1,5 @@
 // auth.js
-import jwt from 'jsonwebtoken';
+import { jwtDecode } from 'jwt-decode';
 
 export const isAuthenticated = () => {
     const token = localStorage.getItem('token');
@@ -11,7 +11,7 @@ export const isAuthenticated = () => {
 
     try {
         // Decodifica el token para obtener la fecha de expiración
-        const decoded = jwt.decode(token);
+        const decoded = jwtDecode(token);
         console.log(decoded);
         const now = Date.now() / 1000; // Tiempo actual en segundos
 

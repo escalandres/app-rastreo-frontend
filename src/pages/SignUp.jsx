@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { alerta } from './js/general';
+import { alerta, showLoader, hideLoader } from './js/general';
 
 const SignUp = () => {
 
@@ -18,8 +18,8 @@ const SignUp = () => {
             if (password !== confirm) {
                 alerta.error('Las contraseñas no coinciden');
             }
-            
             else{
+                showLoader();
                 const response = await fetch('http://localhost:5322/user/signup', {
                     method: 'POST',
                     headers: {
@@ -27,7 +27,7 @@ const SignUp = () => {
                     },
                     body: JSON.stringify({ name: name.trim(), lastname: lastname.trim(), email: email.trim(), password: password.trim() }),
                 });
-
+                hideLoader();
                 if (!response.ok) {
                     alerta.error('Error al iniciar sesión');
                 }
@@ -41,6 +41,7 @@ const SignUp = () => {
                 window.location.href = '/app';
             }
         } catch (error) {
+            hideLoader();
             setError(error.message);
         }
     };

@@ -40,3 +40,13 @@ export const alerta = {
         });
     }
 }
+
+export const showLoader = () => {
+    const loader = document.getElementById('panel');
+    loader.style.display = 'flex';
+}
+
+export const hideLoader = () => {
+    const loader = document.getElementById('panel');
+    loader.style.display = 'none';
+}

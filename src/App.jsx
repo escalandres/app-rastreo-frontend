@@ -1,5 +1,6 @@
 import React from 'react'
 import { RouterProvider } from "react-router-dom";
+import Loader from './pages/components/Loader';
 
 import './index.css';
 import './App.css'
@@ -21,7 +22,8 @@ function App() {
   
   return (
     <div className="App">
-        <RouterProvider router={Router} />
+      <Loader />
+      <RouterProvider router={Router} />
     </div>
   );
 }

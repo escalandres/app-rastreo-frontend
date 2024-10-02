@@ -1,6 +1,6 @@
 // router.js
 import { createBrowserRouter } from 'react-router-dom';
-import Home from '../pages/Home';
+import App from '../pages/App';
 import Login from '../pages/Login';
 import P404 from '../pages/P404';
 import SignUp from '../pages/SignUp';
@@ -27,7 +27,7 @@ const Router = createBrowserRouter(
         path: '/app',
         element: (
             <ProtectedRoute>
-                <Home />
+                <App />
             </ProtectedRoute>
         ),
     },

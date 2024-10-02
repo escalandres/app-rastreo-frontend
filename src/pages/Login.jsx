@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { alerta } from './js/general';
+import { alerta, showLoader, hideLoader } from './js/general';
 
 const Login = () => {
 
@@ -12,6 +12,7 @@ const Login = () => {
         setError(null); // Resetear errores previos
 
         try {
+            showLoader();
             // Simulación de la solicitud de autenticación al servidor
             const response = await fetch('http://localhost:5322/user/login', {
                 method: 'POST',
@@ -20,29 +21,30 @@ const Login = () => {
                 },
                 body: JSON.stringify({ email:email.trim(), password:password.trim() }),
             });
-
+            hideLoader();
+            // console.log(response);
             if (!response.ok) {
                 alerta.error('Error al iniciar sesión');
             }
+            else{
+                const data = await response.json();
+                // Manejo de la respuesta exitosa
+                // console.log(data);
+                // console.log('Usuario autenticado:', data.token);
 
-            const data = await response.json();
-            // Manejo de la respuesta exitosa
-            console.log('Usuario autenticado:', data);
-
-            // Guardar el token o información del usuario en el almacenamiento local o en el estado
-            // Uso de la función para crear una cookie que expire en 7 días
-            // Uso de la función para crear una cookie de autenticación que expire en 7 días
-            // setAuthCookie(data.token, 1);
-            localStorage.setItem('token', data.token); // Ejemplo
-            // Redireccionar o actualizar el estado de la aplicación
-            alert('Usuario autenticado: ' + data.email);
-            window.location.href = '/app'; // Ejemplo
+                // Guardar el token o información del usuario en el almacenamiento local o en el estado
+                // Uso de la función para crear una cookie que expire en 7 días
+                // Uso de la función para crear una cookie de autenticación que expire en 7 días
+                // setAuthCookie(data.token, 1);
+                localStorage.setItem('token', data.token); // Ejemplo
+                // Redireccionar o actualizar el estado de la aplicación
+                window.location.href = '/app'; // Ejemplo
+            }
         } catch (error) {
+            hideLoader();
             setError(error.message);
         }
     };
-
-
 
     return (
         <>

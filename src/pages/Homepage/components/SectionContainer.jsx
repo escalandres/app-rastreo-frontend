@@ -1,6 +1,6 @@
-import React from 'react';
+import PropTypes from "prop-types";
 
-const Section = ({ id, className, children }) => {
+const SectionContainer = ({ id, className, children }) => {
   return (
     <section
       id={id}
@@ -12,4 +12,11 @@ const Section = ({ id, className, children }) => {
   );
 };
 
-export default Section;
+// Definir validaciones de prop-types
+SectionContainer.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired
+};
+
+export default SectionContainer;

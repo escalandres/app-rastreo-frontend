@@ -70,6 +70,21 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.cosmos-orange-text {
+  color: #ff6e6c;
+}
+.team-card__image {
+  border-radius: 50%;
+  width: 20rem;
+  height: 20rem;
+}
+.letter-spacing {
+  letter-spacing: 13px;
+}
+.big-letter-spacing {
+  letter-spacing: 2.5rem;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: var(--dark-blue-color);

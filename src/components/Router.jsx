@@ -5,14 +5,19 @@ import Login from '../pages/Login';
 import P404 from '../pages/P404';
 import SignUp from '../pages/SignUp';
 import ProtectedRoute from './ProtectedRoute';
+import Homepage from '../pages/Homepage';
 
 const Router = createBrowserRouter(
     [
       {
         path: "/",
-        element: <Login/>,
-        errorElement: <P404/>
+        element: <Homepage/>,
       },
+      // {
+      //   path: "/",
+      //   element: <Login/>,
+      //   errorElement: <P404/>
+      // },
       {
         path: "/login",
         element: <Login/>,

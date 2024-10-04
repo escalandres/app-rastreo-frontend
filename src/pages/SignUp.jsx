@@ -53,7 +53,9 @@ const SignUp = () => {
             <div className="w-full space-y-6 text-gray-600 sm:max-w-md md:max-w-lg lg:max-w-2xl">
                 <div className="bg-white shadow p-4 py-6 space-y-8 sm:p-6 sm:rounded-lg">
                     <div className="text-center">
-                        <img src="/icons/dark-favicon.svg" width={150} className="mx-auto" />
+                        <a href="/">
+                            <img src="/icons/dark-favicon.svg" width={150} className="mx-auto" />
+                        </a>
                         <div className="mt-5 space-y-2">
                             <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Crea tu cuenta</h3>
                             <p className="">¿Ya tienes una cuenta? <a href="/" className="font-medium text-indigo-600 hover:text-indigo-500">Iniciar sesion</a></p>

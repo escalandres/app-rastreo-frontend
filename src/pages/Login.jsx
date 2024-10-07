@@ -28,6 +28,7 @@ const Login = () => {
             }
             else{
                 const data = await response.json();
+                console.log(response);
                 // Manejo de la respuesta exitosa
                 // console.log(data);
                 // console.log('Usuario autenticado:', data.token);

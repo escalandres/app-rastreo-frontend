@@ -20,7 +20,7 @@ const SignUp = () => {
             }
             else{
                 showLoader();
-                const response = await fetch('http://localhost:5322/user/signup', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/signup`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

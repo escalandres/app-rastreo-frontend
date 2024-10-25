@@ -1,0 +1,39 @@
+.app__container {
+    display: flex;
+    gap: 20px; /* Espacio entre las columnas */
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.column {
+    flex: 1; /* Cada columna ocupa el 50% del ancho del contenedor */
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+}
+
+.column-40 {
+    flex: 0 0 40%; /* La columna ocupará el 40% del ancho del contenedor */
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+}
+
+.column-60 {
+    flex: 0 0 60%; /* La columna ocupará el 60% del ancho del contenedor */
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+}
+
+
+/* Scroll Container Section */
+.scroll-container {
+    width: 100%; /* O ajusta el ancho que necesites */
+    height: 300px; /* Ajusta la altura que necesites */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+    overflow-x: hidden; /* Opcional: oculta el desplazamiento horizontal */
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}

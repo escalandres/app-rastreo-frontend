@@ -6,6 +6,8 @@ import P404 from '../pages/P404';
 import SignUp from '../pages/SignUp';
 import ProtectedRoute from './ProtectedRoute';
 import Homepage from '../pages/Homepage';
+import AuthenticatedRoute from './AuthenticatedRoute';
+import Logout from './Logout';
 
 const Router = createBrowserRouter(
     [
@@ -20,8 +22,7 @@ const Router = createBrowserRouter(
       // },
       {
         path: "/login",
-        element: <Login/>,
-        errorElement: <P404/>
+        element: <AuthenticatedRoute/>,
       },
       {
         path: "/registro",
@@ -53,6 +54,10 @@ const Router = createBrowserRouter(
         element: <P404/>,
         errorElement: <P404/>
       },
+      {
+        path: "/app/logout",
+        element: <Logout/>,
+      }
     ]
   );
 

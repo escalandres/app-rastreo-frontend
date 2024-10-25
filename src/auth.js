@@ -26,6 +26,7 @@ export const isAuthenticated = () => {
         return true;
 
     } catch (error) {
+        console.error("Ocurrio un error:",error);
         // En caso de que el token sea inválido o haya un error al decodificarlo
         localStorage.removeItem('token');
         return false;

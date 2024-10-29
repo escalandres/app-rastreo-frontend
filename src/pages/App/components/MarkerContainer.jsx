@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import '../css/app.css';
 
@@ -7,13 +6,13 @@ const ScrollContainer = ({ items, width, height }) => {
     <div className="scroll-container">
       {items.map((item, index) => (
         <div key={index} className="scroll-item flex hover:bg-gray-200">
-          <div className="w-1/3 p-4">
-            <img width={width} height={height} src={item.img} alt="Descripción de la imagen" className="" />
+          <div className="w-1/4 p-4">
+            <img width={width} height={height} src="/icons/marker.png" alt="Descripción de la imagen" className="" />
           </div>
-          <div className="w-2/3 p-4 flex flex-col text-left">
-            <p className="mb-2 font-bold">ID: {item.id}</p>
-            <p className="mb-2">Texto 2</p>
-            <p>Texto 3</p>
+          <div className="w-3/4 p-4 flex flex-col text-left text-sm">
+            <p className="mb-2 font-bold">Coord: {item.coordenadas.lat},{item.coordenadas.lng}</p>
+            <p className="mb-2">Fecha: {item.date}</p>
+            <p>Estatus: {item.status}</p>
           </div>
         </div>
       ))}

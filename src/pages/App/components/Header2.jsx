@@ -37,7 +37,7 @@ const ProfileDropDown = (props) => {
                     <span className="block text-sm text-gray-500">john@gmail.com</span>
                 </div>
             </div>
-            <ul className={`bg-white top-12 right-0 mt-5 space-y-5 lg:absolute lg:border lg:rounded-md lg:text-sm lg:w-52 lg:shadow-md lg:space-y-0 lg:mt-0 ${state ? '' : 'lg:hidden'}`}>
+            <ul className={`bg-white z-50 top-12 right-0 mt-5 space-y-5 lg:absolute lg:border lg:rounded-md lg:text-sm lg:w-52 lg:shadow-md lg:space-y-0 lg:mt-0 ${state ? '' : 'lg:hidden'}`}>
                 {
                     navigation.map((item, idx) => (
                         <li key={idx}>
@@ -76,8 +76,8 @@ const Header2 = () => {
                     <a href="/app">
                         <img
                             src="/icons/dark-favicon.svg" 
-                            width={70} 
-                            height={50}
+                            width={60} 
+                            height={40}
                             alt="Cosmos Logo"
                         />
                     </a>

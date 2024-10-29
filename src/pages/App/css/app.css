@@ -1,6 +1,17 @@
+:root{
+    --active-link: #0d6efd;
+    --sidebar-grey: rgb(248,249,250);
+    --new-black: rgb(31,31,31);
+    --light-blue: rgb(194,231,255);
+    --scrollbar-color: rgb(199,199,199);
+    --scrollbar-hover: rgb(116,119,117);
+    --newbtn-gray: rgb(68,71,70);
+    --path-hover: rgb(227, 227, 227);
+}
+
 .app__container {
     display: flex;
-    gap: 20px; /* Espacio entre las columnas */
+    gap: 10px; /* Espacio entre las columnas */
     padding: 20px;
     border: 1px solid #ddd;
 }
@@ -30,10 +41,38 @@
 /* Scroll Container Section */
 .scroll-container {
     width: 100%; /* O ajusta el ancho que necesites */
-    height: 300px; /* Ajusta la altura que necesites */
+    height: 70%; /* Ajusta la altura que necesites */
     overflow-y: auto; /* Permite el desplazamiento vertical */
     overflow-x: hidden; /* Opcional: oculta el desplazamiento horizontal */
-    padding: 10px;
+    padding: 0px;
     border: 1px solid #ccc;
     background-color: #f9f9f9;
+}
+
+/* Personalización de la barra de desplazamiento vertical */
+::-webkit-scrollbar {
+    width: 7px;
+    
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color); /* Color del "pulgares" (la parte que puedes arrastrar) */
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-hover); /* Color del "pulgares" en el estado de "hover" */
+}
+
+::-webkit-scrollbar-track {
+    background: #fff; /* Color de fondo de la barra de desplazamiento */
+}
+
+/* Ocultar las flechas de la barra de desplazamiento */
+::-webkit-scrollbar-button {
+    display: none;
 }

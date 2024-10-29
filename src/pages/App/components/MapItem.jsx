@@ -1,19 +1,24 @@
-import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import PropTypes from 'prop-types';
 
-const MapItem = () => (
-  <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-    <Map
-      style={{width: '100%', height: '52vh'}}
-      defaultCenter={{lat: 19.378348, lng: -99.194816}}
-      defaultZoom={3}
-      gestureHandling={'greedy'}
-      disableDefaultUI={true}
-    >
-      <Marker position={{lat: 19.378348, lng: -99.194816}} />
-    </Map>
-  </APIProvider>
+const MapItem = ({ center }) => (
+    <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+        <Map
+            style={{ width: '100%', height: '52vh' }}
+            center={center} // Cambia defaultCenter a center
+            zoom={15}
+            gestureHandling={'greedy'}
+            disableDefaultUI={true}
+        >
+            <Marker position={center} />
+        </Map>
+    </APIProvider>
 );
-//19.378348, -99.194816
 
+// Validación de las propiedades
+MapItem.propTypes = {
+  center: PropTypes.node.isRequired  // Valida que children sea un nodo de React y sea requerido
+};
 
 export default MapItem;
+

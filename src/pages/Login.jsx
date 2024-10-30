@@ -49,15 +49,15 @@ const Login = () => {
 
     return (
         <>
-        <main className="w-full h-screen flex flex-col items-center justify-center bg-gray-10 dark:bg-gray-50 sm:px-4">
+        <main className="w-full h-screen flex flex-col items-center justify-center bg-gray-10 dark:bg-gray-50 sm:px-4 py-4">
             <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
                 <div className="bg-white shadow p-4 py-6 space-y-8 sm:p-6 sm:rounded-lg">
                     <div className="text-center">
                         <a href="/">
-                            <img src="/icons/dark-favicon.svg" width={150} className="mx-auto" />
+                            <img src="/icons/dark-favicon.svg" width={80} className="mx-auto" />
                         </a>
                         <div className="mt-5 space-y-2">
-                            <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Inicia sesión</h3>
+                            <h3 className="text-gray-800 text-2xl font-bold sm:text-2xl">Inicia sesión</h3>
                             <p className="">¿No tienes una cuenta? <a href="/registro" className="font-medium text-indigo-600 hover:text-indigo-500">Regístrate gratis</a></p>
                         </div>
                     </div>

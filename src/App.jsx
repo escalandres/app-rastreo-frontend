@@ -8,17 +8,17 @@ import Router from './components/Router';
 
 
 function App() {
-  React.useEffect(() => {
-    let pagetitle = document.title;
+  // React.useEffect(() => {
+  //   let pagetitle = document.title;
 
-    window.addEventListener("blur",()=>{
-      document.title = "Come back here";
-    })
-    window.addEventListener("focus",()=>{
-      document.title = pagetitle;
-    })
+  //   window.addEventListener("blur",()=>{
+  //     document.title = "Come back here";
+  //   })
+  //   window.addEventListener("focus",()=>{
+  //     document.title = pagetitle;
+  //   })
     
-  }, []);
+  // }, []);
   
   return (
     <div className="App">

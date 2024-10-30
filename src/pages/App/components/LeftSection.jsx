@@ -8,19 +8,15 @@ const LeftSection = () => {
     
     // Por ejemplo, si tienes un campo llamado "userId"
     const userName = decoded.user.name;
-    const items = [{
-        id: 48273619,
-        img: '/icons/send-box.png',
-    }, {
-        id: 59102473,
-        img: '/icons/picture.png',
-    }, {
-        id: 30814562,
-        img: '/icons/phone.png',
-    }]
+    const items = [
+        { id: 48273619, img: '/icons/send-box.png', }, 
+        { id: 59102473, img: '/icons/picture.png', },
+        { id: 30814562, img: '/icons/phone.png', },
+        { id: 91272515, img: '/icons/send-box.png', },
+    ]
 
     return (
-        <div className="left-section">
+        <div className="flex flex-col h-full">
             <h1 className="text-left text-lg font-bold mb-4">Bienvenido {userName}</h1>
             <ScrollContainer items={items} width={100} height={30} />
         </div>

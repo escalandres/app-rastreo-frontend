@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const MapItem = ({ center }) => (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
         <Map
-            style={{ width: '100%', height: '52vh' }}
-            center={center} // Cambia defaultCenter a center
+            style={{ width: '100%', height: '100%' }}
+            center={center}
             zoom={15}
             gestureHandling={'greedy'}
             disableDefaultUI={true}
@@ -17,8 +17,9 @@ const MapItem = ({ center }) => (
 
 // Validación de las propiedades
 MapItem.propTypes = {
-  center: PropTypes.node.isRequired  // Valida que children sea un nodo de React y sea requerido
+  center: PropTypes.object.isRequired  // Valida que sea un objeto y sea requerido
 };
 
 export default MapItem;
+
 

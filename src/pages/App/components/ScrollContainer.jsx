@@ -4,10 +4,10 @@ import '../css/app.css';
 
 const ScrollContainer = ({ items, width, height }) => {
   return (
-    <div className="scroll-container">
+    <div className="scroll-container overflow-y">
       {items.map((item, index) => (
         <div key={index} className="scroll-item flex hover:bg-gray-200">
-          <div className="w-1/3 p-4">
+          <div className="w-1/3 p-4 flex items-center justify-center">
             <img width={width} height={height} src={item.img} alt="Descripción de la imagen" className="" />
           </div>
           <div className="w-2/3 p-4 flex flex-col text-left">

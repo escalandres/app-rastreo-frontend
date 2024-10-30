@@ -89,10 +89,10 @@ const ForgotPassword = () => {
                         <p className="inline-block w-fit text-sm bg-white px-2 absolute -top-2 inset-x-0 mx-auto">O continua con</p>
                     </div>
                     <div className="text-center">
-                        <a href="/registro" className="hover:text-indigo-600">¿No tienes cuenta en Cosmos?</a>
+                        <p className="">¿No tienes cuenta en Cosmos? <a href="/registro" className="font-medium text-indigo-600 hover:text-indigo-500">Registrarse</a></p>
                     </div>
                     <div className="text-center">
-                        <a href="/login" className="hover:text-indigo-600">También puedes iniciar sesión</a>
+                        <p className="">También puedes <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">iniciar sesión</a></p>
                     </div>
                 </div>
             </div>

@@ -58,7 +58,7 @@ const SignUp = () => {
                         </a>
                         <div className="mt-5 space-y-2">
                             <h3 className="text-gray-800 text-2xl font-bold sm:text-2xl">Crea tu cuenta</h3>
-                            <p className="">¿Ya tienes una cuenta? <a href="/" className="font-medium text-indigo-600 hover:text-indigo-500">Iniciar sesion</a></p>
+                            <p className="">¿Ya tienes una cuenta? <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">Iniciar sesion</a></p>
                             {/* <p className="">¿Ya tienes una cuenta? <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">Iniciar sesion</a></p> */}
                         </div>
                     </div>

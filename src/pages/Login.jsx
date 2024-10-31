@@ -2,10 +2,17 @@ import { useState } from 'react';
 import { alerta, showLoader, hideLoader } from './js/general';
 
 const Login = () => {
-
+    document.title = 'Iniciar sesión | Cosmos';
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    // Función para alternar la visibilidad de la contraseña
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -54,7 +61,7 @@ const Login = () => {
                 <div className="bg-white shadow p-4 py-6 space-y-8 sm:p-6 sm:rounded-lg">
                     <div className="text-center">
                         <a href="/">
-                            <img src="/icons/dark-favicon.svg" width={80} className="mx-auto" />
+                            <img src="/icons/dark-favicon.svg" alt="Cosmos" width={80} className="mx-auto" />
                         </a>
                         <div className="mt-5 space-y-2">
                             <h3 className="text-gray-800 text-2xl font-bold sm:text-2xl">Inicia sesión</h3>
@@ -127,14 +134,20 @@ const Login = () => {
                             <label className="font-medium">
                                 Contraseña
                             </label>
-                            <input
-                                type="password"
-                                value={password}
-                                placeholder='Escribe tu contraseña'
-                                onChange={(e) => setPassword(e.target.value)} 
-                                required
-                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                            />
+                            <div className="relative w-full mt-2">
+                                <input
+                                    type={showPassword ? "text" : "password"} // Alterna entre text y password
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Escribe tu contraseña"
+                                    required
+                                    className="w-full px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg pr-10"
+                                />
+                                <i 
+                                    className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'} absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer`}
+                                    onClick={togglePasswordVisibility}
+                                ></i>
+                            </div>
                         </div>
                         <button
                             className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"

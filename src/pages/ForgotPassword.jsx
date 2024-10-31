@@ -2,44 +2,36 @@ import { useState } from 'react';
 import { alerta, showLoader, hideLoader } from './js/general';
 
 const ForgotPassword = () => {
-
+    document.title = 'Recuperar cuenta | Cosmos';
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
-    const handleLogin = async (e) => {
+    const handleForgot = async (e) => {
         e.preventDefault();
         setError(null); // Resetear errores previos
 
         try {
             showLoader();
             // Simulación de la solicitud de autenticación al servidor
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/login`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/generate-otp`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email:email.trim(), password:password.trim() }),
+                body: JSON.stringify({ email:email.trim() }),
             });
             hideLoader();
             // console.log(response);
             if (!response.ok) {
-                alerta.error('Error al iniciar sesión');
+                alerta.error('Error al solicitar la recuperación de la cuenta. Inténtalo de nuevo.');
             }
             else{
                 const data = await response.json();
                 console.log(response);
-                // Manejo de la respuesta exitosa
-                // console.log(data);
-                // console.log('Usuario autenticado:', data.token);
-
-                // Guardar el token o información del usuario en el almacenamiento local o en el estado
-                // Uso de la función para crear una cookie que expire en 7 días
-                // Uso de la función para crear una cookie de autenticación que expire en 7 días
-                // setAuthCookie(data.token, 1);
-                localStorage.setItem('token', data.token); // Ejemplo
+                localStorage.setItem('tokenOTP', data.token); // Ejemplo
                 // Redireccionar o actualizar el estado de la aplicación
-                window.location.href = '/app'; // Ejemplo
+                alerta.success('Se ha enviado un correo electrónico con las instrucciones para recuperar tu cuenta.');
+                setEmail('');
             }
         } catch (error) {
             hideLoader();
@@ -54,14 +46,14 @@ const ForgotPassword = () => {
                 <div className="bg-white shadow p-4 py-6 space-y-8 sm:p-6 sm:rounded-lg">
                     <div className="text-center">
                         <a href="/">
-                            <img src="/icons/dark-favicon.svg" width={100} className="mx-auto" />
+                            <img src="/icons/dark-favicon.svg" alt="Cosmos" width={100} className="mx-auto" />
                         </a>
                         <div className="mt-5 space-y-2">
                             <h3 className="text-gray-800 text-2xl font-bold sm:text-xl">Recupera tu cuenta</h3>
                         </div>
                     </div>
                     <form
-                        onSubmit={handleLogin}
+                        onSubmit={handleForgot}
                         className="space-y-5"
                     >
                         <div className="text-left">

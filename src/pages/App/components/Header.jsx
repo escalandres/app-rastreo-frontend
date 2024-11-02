@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react"
 import PropTypes from 'prop-types';
+import { jwtDecode } from 'jwt-decode';
 
 // Profile Dropdown
 const ProfileDropDown = (props) => {
-
+    const token = jwtDecode(localStorage.getItem('token'));
+    console.log(token);
     const [state, setState] = useState(false)
     const profileRef = useRef()
 
@@ -28,7 +30,7 @@ const ProfileDropDown = (props) => {
                     onClick={() => setState(!state)}
                 >
                     <img
-                        src="/icons/user.png"
+                        src={token.user?.profile_picture === "" ? "/icons/user.png" : token.user?.profile_picture}
                         className="w-full h-full rounded-full"
                     />
                 </button>

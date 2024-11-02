@@ -9,6 +9,8 @@ import AuthenticatedRoute from './AuthenticatedRoute';
 import Logout from './Logout';
 import ForgotPassword from '../pages/ForgotPassword';
 import ChangePassword from '../pages/ChangePassword';
+import GithubAuthorize from './GithubAuthMiddleware';
+import { LinkedInCallback } from 'react-linkedin-login-oauth2';
 
 const Router = createBrowserRouter(
     [
@@ -16,11 +18,6 @@ const Router = createBrowserRouter(
         path: "/",
         element: <Homepage/>,
       },
-      // {
-      //   path: "/",
-      //   element: <Login/>,
-      //   errorElement: <P404/>
-      // },
       {
         path: "/login",
         element: <AuthenticatedRoute/>,
@@ -46,14 +43,6 @@ const Router = createBrowserRouter(
         path: "/cambiar-contrasena",
         element: <ChangePassword/>
       },
-      // {
-      //   path: "/password-gallery",
-      //   element: <PasswordGallery/>
-      // },
-      // {
-      //   path: "/dash",
-      //   element: <Dashboard/>
-      // },
       {
         path: "/page-not-found",
         element: <P404/>,
@@ -62,6 +51,14 @@ const Router = createBrowserRouter(
       {
         path: "/app/logout",
         element: <Logout/>,
+      },
+      {
+        path: "/auth/github",
+        element: <GithubAuthorize/>,
+      },
+      {
+        path: "/auth/linkedin/callback",
+        element: <LinkedInCallback />,
       }
     ]
   );

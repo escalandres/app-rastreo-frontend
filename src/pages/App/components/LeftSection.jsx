@@ -1,5 +1,6 @@
-import ScrollContainer from "./ScrollContainer";
 import { jwtDecode } from 'jwt-decode';
+import ScrollContainer from "./ScrollContainer";
+import AddTracker from './AddTracker';
 
 const LeftSection = () => {
     const token = localStorage.getItem('token');
@@ -18,6 +19,9 @@ const LeftSection = () => {
     return (
         <div className="flex flex-col h-full">
             <h1 className="text-left text-lg font-bold mb-4">Bienvenido, {userName}</h1>
+            <div className="mb-2">
+                <AddTracker />
+            </div>
             <ScrollContainer items={items} width={100} height={30} />
         </div>
     );

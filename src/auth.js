@@ -3,7 +3,6 @@ import { jwtDecode } from 'jwt-decode';
 
 export const isAuthenticated = () => {
     const token = localStorage.getItem('token');
-    console.log(token);
     // Verifica si existe el token en el localStorage
     if (!token) {
         return false;
@@ -12,7 +11,7 @@ export const isAuthenticated = () => {
     try {
         // Decodifica el token para obtener la fecha de expiración
         const decoded = jwtDecode(token);
-        console.log(decoded);
+        // console.log(decoded);
         const now = Date.now() / 1000; // Tiempo actual en segundos
 
         // Verifica si el token ha expirado

@@ -5,7 +5,7 @@ const LinkedInAuth = () => {
   const handleSuccess = async (data) => {
     console.log(data.code);
     try {
-      const response = await fetch('http://localhost:5322/auth/linkedin/callback', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/linkedin/callback`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,9 +26,9 @@ const LinkedInAuth = () => {
 
   const { linkedInLogin } = useLinkedIn({
     clientId: import.meta.env.VITE_LINKEDIN_CLIENT_ID,
-    redirectUri: "http://localhost:3100/auth/linkedin/callback",
+    redirectUri: `${window.location.origin}/auth/linkedin/callback`,
     onSuccess: handleSuccess,
-    scope: "openid",
+    scope: "openid r_emailaddress r_liteprofile",
     onError: handleFailure,
   });
 

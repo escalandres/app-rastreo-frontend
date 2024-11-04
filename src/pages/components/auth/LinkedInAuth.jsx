@@ -1,6 +1,5 @@
-import React from 'react';
 import { useLinkedIn } from 'react-linkedin-login-oauth2';
-import { alerta, showLoader, hideLoader } from '../../js/general';
+import { alerta } from '../../js/general';
 
 const LinkedInAuth = () => {
   const handleSuccess = async (data) => {

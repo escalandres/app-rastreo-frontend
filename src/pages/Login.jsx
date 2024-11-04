@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { alerta, showLoader, hideLoader } from './js/general';
 import GoogleAuth from './components/auth/GoogleAuth';
 import GitHubAuth from './components/auth/GitHubAuth';
-import LinkedInAuth from './components/auth/LinkedinAuth';
+import LinkedInAuth from './components/auth/LinkedInAuth';
 
 const Login = () => {
     document.title = 'Iniciar sesión | Cosmos';

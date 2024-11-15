@@ -9,15 +9,6 @@ const Loader = () => {
             </div>
         </div>
     )
-//     return (
-//         <div id="panel" className="panel" style="display: none;"> 
-//             <div className="panel-container">
-//                 <div className="spinner-border text-light spinne" style="" role="status">
-//                     <span className="visually-hidden">Loading...</span>
-//                 </div>
-//             </div>
-//         </div>    
-//   )
 }
 
 export default Loader;

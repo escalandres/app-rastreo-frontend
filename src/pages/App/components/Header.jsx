@@ -30,7 +30,7 @@ const ProfileDropDown = (props) => {
                     onClick={() => setState(!state)}
                 >
                     <img
-                        src={token.user?.profile_picture === "" ? "/icons/user.png" : token.user?.profile_picture}
+                        src={token.user?.profile_picture ? token.user?.profile_picture : "/icons/user.png"}
                         className="w-full h-full rounded-full"
                     />
                 </button>

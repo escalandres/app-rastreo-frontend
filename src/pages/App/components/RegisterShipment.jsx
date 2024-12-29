@@ -28,7 +28,7 @@ const AddTracker = () => {
                         </div>
                         <div className="max-w-sm mx-auto space-y-3 text-center ">
                             <Dialog.Title className="text-lg font-medium text-gray-800 ">
-                                Vincular Dispositivo de Rastreo
+                                Ingrese un nuevo envío
                             </Dialog.Title>
 
                             <Dialog.Description className=" text-sm text-gray-600">
@@ -37,15 +37,67 @@ const AddTracker = () => {
                                 Una vez hecho, podrá gestionar y monitorear la ubicación de su(s) dispositivo(s).
                                 </p>
                             </Dialog.Description>
-                            <fieldset className="Fieldset relative">
-                                <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Select your country</label>
-                                <select id="countries" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
-                                    <option>United States</option>
-                                    <option>Canada</option>
-                                    <option>France</option>
-                                    <option>Germany</option>
-                                </select>
-                            </fieldset>
+                            <div className="flex items-center gap-4 mb-2">
+                                <fieldset className="Fieldset relative text-left">
+                                    <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Selecciona la empresa de paquetería</label>
+                                    <select id="countries" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
+                                        <option>United States</option>
+                                        <option>Canada</option>
+                                        <option>France</option>
+                                        <option>Germany</option>
+                                    </select>
+                                </fieldset>
+                                <fieldset className="Fieldset relative text-left">
+                                    <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Selecciona el servicio de envío</label>
+                                    <select id="countries" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
+                                        <option>United States</option>
+                                        <option>Canada</option>
+                                        <option>France</option>
+                                        <option>Germany</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div className="flex items-center gap-4 mb-2">
+                                <div>
+                                    <fieldset className="Fieldset relative text-left">
+                                        <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Guía de rastreo</label>
+                                        <fieldset className="Fieldset relative">
+                                            <svg 
+                                                className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto fill-none stroke-gray-400"
+                                                version="1.1" 
+                                                id="Icons" 
+                                                xmlns="http://www.w3.org/2000/svg" 
+                                                xmlnsXlink="http://www.w3.org/1999/xlink" 
+                                                viewBox="0 0 24 24" 
+                                                xmlSpace="preserve"
+                                            >
+                                                <path d="M8 8L8 16" />
+                                                <path d="M12 8L12 16" />
+                                                <path d="M16 8L16 16" />
+                                                <path d="M8.976 21C4.05476 21 3 19.9453 3 15.024" />
+                                                <path d="M20.9999 15.024C20.9999 19.9453 19.9452 21 15.0239 21" />
+                                                <path d="M15.0239 3C19.9452 3 20.9999 4.05476 20.9999 8.976" />
+                                                <path d="M3 8.976C3 4.05476 4.05476 3 8.976 3" />
+                                            </svg>
+                                            <input
+                                                className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                                placeholder="Ingrese el código de rastreo"
+                                            />
+                                        </fieldset>
+                                    </fieldset>
+                                </div>
+                            
+                                <fieldset className="Fieldset relative text-left">
+                                    <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Selecciona tu rastreador</label>
+                                    <select id="countries" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
+                                        <option>United States</option>
+                                        <option>Canada</option>
+                                        <option>France</option>
+                                        <option>Germany</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            
                             <Dialog.Close asChild>
                                 <button className=" w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2">
                                     Vincular rastreador

@@ -3,7 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 const AddTracker = () => {
     return (
         <Dialog.Root id="trackerModal" className="fixed inset-0 z-10 overflow-y-auto hidden">
-            <Dialog.Trigger className="h-10 flex items-center justify-center py-2.5 px-4 shadow-sm rounded-md bg-indigo-600 text-white">
+            <Dialog.Trigger className="px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
                 <i className="fa-solid fa-plus me-2"></i> Agregar rastreador
             </Dialog.Trigger>
             <Dialog.Portal>

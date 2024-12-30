@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-
+const markerZoom = 15;
 const MarkerContainer = ({ items, width, height, onItemClick }) => {
     return (
         <div className="scroll-container">
             {items.map((item, index) => (
-                <div key={index} className="scroll-item flex hover:bg-gray-200" onClick={() => onItemClick(item.coordenadas)}>
+                <div key={index} className="scroll-item flex hover:bg-gray-200" onClick={() => onItemClick(item.coordenadas, markerZoom)}>
                     <div className="w-1/5 p-4 flex items-center justify-center">
                         <img width={width} height={height} src="/icons/marker.png" alt="Descripción de la imagen" />
                     </div>

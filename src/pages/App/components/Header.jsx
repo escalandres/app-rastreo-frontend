@@ -10,8 +10,7 @@ const ProfileDropDown = (props) => {
     const profileRef = useRef()
 
     const navigation = [
-        { title: "Dashboard", path: "javascript:void(0)" },
-        { title: "Settings", path: "javascript:void(0)" },
+        { title: "Settings", path: "/app/settings" },
         { title: "Log out", path: "/app/logout" },
     ]
 
@@ -56,7 +55,7 @@ const ProfileDropDown = (props) => {
 
 // Validación de las propiedades
 ProfileDropDown.propTypes = {
-    props: PropTypes.node.isRequired,  // Valida que children sea un nodo de React y sea requerido
+    props: PropTypes.node,  // Valida que children sea un nodo de React y sea requerido
 };
 
 const Header = () => {

@@ -3,7 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 const AddTracker = () => {
     return (
         <Dialog.Root id="trackerModal" className="fixed inset-0 z-10 overflow-y-auto hidden">
-            <Dialog.Trigger className="px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+            <Dialog.Trigger className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150">
                 <i className="fa-solid fa-plus me-2"></i> Iniciar envío
             </Dialog.Trigger>
             <Dialog.Portal>

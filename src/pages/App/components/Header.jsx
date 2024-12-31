@@ -1,11 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 import PropTypes from 'prop-types';
-import { jwtDecode } from 'jwt-decode';
 
 // Profile Dropdown
-const ProfileDropDown = (props) => {
-    const token = jwtDecode(localStorage.getItem('token'));
-    console.log(token);
+const ProfileDropDown = ({propClass, token}) => {
     const [state, setState] = useState(false)
     const profileRef = useRef()
 
@@ -13,7 +10,6 @@ const ProfileDropDown = (props) => {
         { title: "Settings", path: "/app/settings" },
         { title: "Log out", path: "/app/logout" },
     ]
-
     
     useEffect(() => {
         const handleDropDown = (e) => {
@@ -23,7 +19,7 @@ const ProfileDropDown = (props) => {
     }, [])
 
     return (
-        <div className={`relative ${props.class} mx-2`}>
+        <div className={`relative ${propClass} mx-2`}>
             <div className="flex items-center space-x-4">
                 <button ref={profileRef} className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-gray-200 ring-2 lg:focus:ring-indigo-600"
                     onClick={() => setState(!state)}
@@ -55,10 +51,11 @@ const ProfileDropDown = (props) => {
 
 // Validación de las propiedades
 ProfileDropDown.propTypes = {
-    props: PropTypes.node,  // Valida que children sea un nodo de React y sea requerido
+    propClass: PropTypes.string,  // Valida que children sea un nodo de React y sea requerido
+    token: PropTypes.object.isRequired,
 };
 
-const Header = () => {
+const Header = ({ token }) => {
 
     const [menuState, setMenuState] = useState(false)
 
@@ -97,12 +94,14 @@ const Header = () => {
                             }
                         </ul>
                         <ProfileDropDown 
-                            class="mt-5 pt-5 border-t lg:hidden"
+                            propClass={"mt-5 pt-5 border-t lg:hidden"}
+                            token={token}
                         />
                     </div>
                     <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-6">
                         <ProfileDropDown 
-                            class="hidden lg:block"
+                            propClass={"hidden lg:block"}
+                            token={token}
                         />
                         <button 
                             className="outline-none text-gray-400 block lg:hidden"
@@ -126,5 +125,9 @@ const Header = () => {
         </nav>
     )
 }
+
+Header.propTypes = {
+    token: PropTypes.object.isRequired,
+};
 
 export default Header;

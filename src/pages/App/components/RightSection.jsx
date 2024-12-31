@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import MarkerContainer from "./MarkerContainer";
 import MapItem from "./MapItem";
 
-const RightSection = () => {
-    const [center, setCenter] = useState();
-    const [zoom, setZoom] = useState();
-    const [showAllMarkers, setShowAllMarkers] = useState(false);
+const RightSection = ({ container }) => {
+    const [center, setCenter] = React.useState();
+    const [zoom, setZoom] = React.useState();
+    const [showAllMarkers, setShowAllMarkers] = React.useState(false);
     const items = [
         { coordenadas: { lat: 19.378348, lng: -99.194816 }, date: "24/10/23,09:16:59-24", status: "En camino" },
         { coordenadas: { lat: 19.371597, lng: -99.203664 }, date: "24/10/23,09:51:53-24", status: "En camino" },
@@ -18,7 +19,10 @@ const RightSection = () => {
         { coordenadas: { lat: 18.9270946, lng: -99.2514939 }, date: "24/10/23,11:56:05-24", status: "En camino" },
         { coordenadas: { lat: 18.912246, lng: -99.2865554 }, date: "24/10/23,12:56:05-24", status: "En camino" },
     ];
-    const [markers, setMarkers] = useState(items);
+    const [markers, setMarkers] = React.useState(items);
+    const containerRef = React.useRef(container);
+    React.useEffect(() => { if (containerRef.current !== container) { containerRef.current = container; alert(`container: ${container}`)  } }, [container]);
+    
     const handleItemClick = (coordenadas, aumento) => {
         setCenter(coordenadas);
         setZoom(aumento);
@@ -57,5 +61,8 @@ const RightSection = () => {
         
     );
 }
+RightSection.propTypes = {
+    container: PropTypes.string  // Valida que children sea un nodo de React y sea requerido
+};
 
 export default RightSection;

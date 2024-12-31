@@ -7,7 +7,7 @@ const MarkerContainer = ({ items, width, height, onItemClick }) => {
                 <p>Empresa: DHL Express.</p>
                 <p>Guía rastreo: 2989923510.</p>
                 <p>Fecha envío: 29/12/2024 a las 20:25.</p>
-                <p>Estatus: En tránsito - El envío ha salido para su entrega.</p>
+                <p>Estatus: En tránsito | El envío ha salido para su entrega.</p>
                 <p>Fecha llegada: null.</p>
             </div>
             <div className="scroll-container">

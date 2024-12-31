@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { jwtDecode } from 'jwt-decode';
+import { alerta, showLoader, hideLoader } from '../../js/general';
+
 import MarkerContainer from "./MarkerContainer";
 import MapItem from "./MapItem";
 
@@ -21,6 +24,39 @@ const RightSection = ({ container }) => {
     ];
     const [markers, setMarkers] = React.useState(items);
     const containerRef = React.useRef(container);
+
+    const getContainerCurrentShipment = async (e) => {
+        e.preventDefault();
+        try{
+            const userToken = jwtDecode(localStorage.getItem('token'));
+
+            showLoader();
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/get-user-shipments`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
+            });
+            hideLoader();
+            // console.log(response);
+            if (!response.ok) {
+                alerta.error('No se pudo obtener sus rastreadores. Inténtelo nuevamente.');
+            }
+            else{
+                const data = await response.json();
+                console.log(response);
+                localStorage.setItem('token', data.token); // Ejemplo
+                // Redireccionar o actualizar el estado de la aplicación
+                window.location.href = '/app'; // Ejemplo
+            }
+        }catch(error){
+            console.error('Error:', error);
+        }
+        
+
+    };
+
+
     React.useEffect(() => { if (containerRef.current !== container) { containerRef.current = container; alert(`container: ${container}`)  } }, [container]);
     
     const handleItemClick = (coordenadas, aumento) => {

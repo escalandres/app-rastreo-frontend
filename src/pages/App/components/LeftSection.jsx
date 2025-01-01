@@ -14,7 +14,7 @@ const LeftSection = ({ setContainer, getUserContainers }) => {
     
     // Por ejemplo, si tienes un campo llamado "userId"
     const userName = decoded.user.name;
-    const items = [
+    const itemsTest = [
         { id: 48273619, img: '/icons/send-box.png', nickname: "Paquete 1", }, 
         { id: 59102473, img: '/icons/picture.png', nickname: "Paquete 2",},
         { id: 30814562, img: '/icons/phone.png', nickname: "Paquete 3",},
@@ -44,13 +44,14 @@ const LeftSection = ({ setContainer, getUserContainers }) => {
                 <AddTracker />
                 <RegisterShipment />
             </div>
-            <ScrollContainer items={items} width={100} height={30} onItemClick={handleItemClick} />
+            <ScrollContainer items={trackers} width={100} height={30} onItemClick={handleItemClick} />
         </div>
     );
 }
 
 LeftSection.propTypes = {
-    setContainer: PropTypes.string  // Valida que children sea un nodo de React y sea requerido
+    setContainer: PropTypes.string,
+    getUserContainers: PropTypes.func,
 };
 
 export default LeftSection;

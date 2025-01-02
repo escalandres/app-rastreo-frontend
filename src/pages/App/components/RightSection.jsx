@@ -10,7 +10,26 @@ const RightSection = ({ container }) => {
     const [center, setCenter] = React.useState();
     const [zoom, setZoom] = React.useState();
     const [showAllMarkers, setShowAllMarkers] = React.useState(false);
-    const items = [
+    const [shipment, setShipment] = React.useState({
+        id: 1,
+        container_id: 1,
+        start_date: "24/10/23,09:16:59-24",
+        delivery_date: null,
+        shipment_data: {
+            company: "DHL",
+            service_id: "express",
+            service: "Express",
+            tracking_number: "2989923510",
+        },
+        locations: [],
+        shipment_status: [{
+            timestamp: "24/10/23,09:16:59-24",
+            description: "En tránsito | El envío ha salido para su entrega",
+            location: "Ciudad de México, CDMX"
+        }]
+    });
+    const items = [];
+    const itemsTest = [
         { coordenadas: { lat: 19.378348, lng: -99.194816 }, date: "24/10/23,09:16:59-24", status: "En camino" },
         { coordenadas: { lat: 19.371597, lng: -99.203664 }, date: "24/10/23,09:51:53-24", status: "En camino" },
         { coordenadas: { lat: 19.336248, lng: -99.176434 }, date: "24/10/23,09:56:05-24", status: "En camino" },
@@ -90,7 +109,7 @@ const RightSection = ({ container }) => {
                     <MapItem zoom={zoom} center={center} showMarkers={showAllMarkers} markers={markers} />
                 </div>
                 <div className="w-1/2 h-full no-padding flex flex-col">
-                    <MarkerContainer items={items} width={40} height={40} onItemClick={handleItemClick} />
+                    <MarkerContainer shipment={shipment} width={40} height={40} onItemClick={handleItemClick} />
                 </div>
             </div>
             </div>

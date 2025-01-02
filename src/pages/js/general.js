@@ -38,7 +38,25 @@ export const alerta = {
             icon: 'info',
             confirmButtonText: 'Aceptar'
         });
-    }
+    },
+    autoSuccess: (mensaje,titulo = '¡Éxito!') => {
+        Swal.fire({
+            title: titulo,
+            text: mensaje,
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2500
+        });
+    },
+    autoError: (mensaje,titulo = 'Error') => {
+        Swal.fire({
+            title: titulo,
+            text: mensaje,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2500
+        });
+    },
 }
 
 export const showLoader = () => {

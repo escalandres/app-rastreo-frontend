@@ -1,9 +1,60 @@
+import { useState } from 'react';
 import * as Dialog from "@radix-ui/react-dialog";
+import PropTypes from 'prop-types';
+import { alerta, showLoader, hideLoader } from '../../js/general';
 
-const AddTracker = () => {
+const AddTracker = ({ token }) => {
+    const [tracker, setTracker] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false); // Estado para controlar si ya se ha enviado el formulario
+    const [isOpen, setIsOpen] = useState(false); // Estado para controlar la apertura y cierre del modal
+
+    const handleLinkTracker = async (e) => {
+        e.preventDefault();
+
+        if (isSubmitting) {
+            return; // Evita que el formulario se vuelva a enviar
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            showLoader();
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/link-tracker`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ trackerID: tracker.trim() }),
+            });
+            hideLoader();
+
+            if (!response.ok) {
+                alerta.autoError('Error al vincular el rastreador. Inténtelo nuevamente.');
+            } else {
+                const data = await response.json();
+                data.success ? alerta.autoSuccess(data.message) : alerta.autoError(data.message);
+                // Cerrar el modal después de mostrar la alerta
+                setTimeout(() => {
+                    setIsOpen(false);
+                    // Recargar la página actual
+                    location.reload();
+                }, 500); // Ajusta el tiempo según sea necesario
+            }
+        } catch (error) {
+            hideLoader();
+            console.log('error', error.message);
+        } finally {
+            setIsSubmitting(false); // Restablece el estado de envío
+        }
+    };
+
     return (
-        <Dialog.Root id="trackerModal" className="fixed inset-0 z-10 overflow-y-auto hidden">
-            <Dialog.Trigger className="px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+        <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+            <Dialog.Trigger 
+                className="px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+                onClick={() => setIsOpen(true)}
+            >
                 <i className="fa-solid fa-plus me-2"></i> Agregar rastreador
             </Dialog.Trigger>
             <Dialog.Portal>
@@ -26,32 +77,18 @@ const AddTracker = () => {
                                 </svg>
                             </Dialog.Close>
                         </div>
-                        <div className="max-w-sm mx-auto space-y-3 text-center ">
+                        <div className="max-w-sm mx-auto space-y-3 text-center">
                             <Dialog.Title className="text-lg font-medium text-gray-800 ">
                                 Vincular Dispositivo de Rastreo
                             </Dialog.Title>
 
                             <Dialog.Description className=" text-sm text-gray-600">
                                 <p>
-                                Ingrese el código del rastreador para vincularlo a su cuenta. 
-                                Una vez hecho, podrá gestionar y monitorear la ubicación de su(s) dispositivo(s).
+                                    Ingrese el código del rastreador para vincularlo a su cuenta. 
+                                    Una vez hecho, podrá gestionar y monitorear la ubicación de su(s) dispositivo(s).
                                 </p>
                             </Dialog.Description>
                             <fieldset className="Fieldset relative">
-                                {/* <svg 
-                                    className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto fill-none stroke-gray-400 transform scale-x-[-1]"
-                                    version="1.1" 
-                                    id="Icons" 
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    xmlnsXlink="http://www.w3.org/1999/xlink" 
-                                    viewBox="0 0 32 32" 
-                                    xmlSpace="preserve"
-                                >
-                                    <path d="M23.8,3.1c5.3,5.3,5.3,13.8,0,19.1s-13.8,5.3-19.1,0"/>
-                                    <path d="M14,26.5c-0.6,1-1,2.2-1,3.5h14c0-3-1.9-5.6-4.6-6.6"/>
-                                    <path d="M12,15L12,15c2.2,0,4-1.8,4-4v0L6,5L12,15z"/>
-                                    <path d="M11,8c5.1-4.8,10.7-7,12.8-4.9c2.2,2.2-0.3,8.2-5.6,13.5S7,24.4,4.8,22.2C2.8,20.2,4.7,15,9,10"/>
-                                </svg> */}
                                 <svg 
                                     className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto fill-none stroke-gray-400"
                                     version="1.1" 
@@ -71,20 +108,27 @@ const AddTracker = () => {
                                 </svg>
                                 <input
                                     className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                    value={tracker}
+                                    onChange={(e) => setTracker(e.target.value)}
                                     placeholder="Ingrese el código del rastreador"
                                 />
                             </fieldset>
-                            <Dialog.Close asChild>
-                                <button className=" w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2">
-                                    Vincular rastreador
-                                </button>
-                            </Dialog.Close>
+                            <button
+                                className="w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2"
+                                onClick={handleLinkTracker}
+                            >
+                                Vincular rastreador
+                            </button>
                         </div>
                     </div>
                 </Dialog.Content>
             </Dialog.Portal>
         </Dialog.Root>
     );
+};
+
+AddTracker.propTypes = {
+    token: PropTypes.string
 };
 
 export default AddTracker;

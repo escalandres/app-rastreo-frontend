@@ -4,9 +4,7 @@ import React from 'react';
 
 const MapItem = ({ center, zoom, showMarkers, markers }) => {
     const initialCenter = { lat: 23.9475222, lng: -99.4789187 };
-    const i2 = { lat: 19.3837832, lng: -99.196047 };
     const [isFreeMode, setIsFreeMode] = React.useState(false);
-    const [showAllMarkers, setShowAllMarkers] = React.useState(false);
     const centerRef = React.useRef(center);
     React.useEffect(() => { if (centerRef.current !== center) { centerRef.current = center; setIsFreeMode(false); } }, [center, zoom]);
 
@@ -33,9 +31,6 @@ const MapItem = ({ center, zoom, showMarkers, markers }) => {
                 disableDefaultUI={false}
                 onClick={handleMapClick}
             >
-            {/* //Agregar funcionalidad para mostrar 1 marcador o todos los marcadores */}
-                {/* <Marker position={center} />
-                <Marker position={i2} /> */}
                 {/* Mostrar marcadores condicionalmente */} {
                     showMarkers ? markers.map((marker, index) => ( <Marker key={index} position={marker.coordenadas} /> )) : <Marker position={center} />
                 }

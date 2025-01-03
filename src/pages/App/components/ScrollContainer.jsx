@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import EditTracker from './EditTracker';
 import '../css/app.css';
 
 const ScrollContainer = ({ items, width, height, onItemClick }) => {
@@ -15,6 +16,7 @@ const ScrollContainer = ({ items, width, height, onItemClick }) => {
               <p className="mb-2 font-bold">Nickname: {item.nickname}</p>
               <p className="mb-2">Texto 2</p>
               <p>Texto 3</p>
+              <EditTracker />
             </div>
           </div>
         ))

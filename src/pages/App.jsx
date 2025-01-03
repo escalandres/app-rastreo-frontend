@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Header from './App/components/Header';
 import LeftSection from './App/components/LeftSection';
 import './App/css/app.css';
@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 import RightSection from './App/components/RightSection';
 
 const App = () => {
-    const [container, setContainer] = useState("Estado inicial");
+    const [container, setContainer] = useState('');
     const [isLoading, setIsLoading] = useState(false); // Estado de carga
     const [containers, setContainers] = useState([]);
     const token = localStorage.getItem('token');
@@ -59,7 +59,7 @@ const App = () => {
                     <LeftSection setContainer={setContainer} containers={containers} isLoading={isLoading} />
                 </div>
                 <div className="column-60">
-                    <RightSection container={container} />
+                    <RightSection token={token} container={container} />
                 </div>
             </div>
         </div>

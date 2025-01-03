@@ -5,11 +5,10 @@ import ScrollContainer from "./ScrollContainer";
 import AddTracker from './AddTracker';
 import RegisterShipment from './RegisterShipment';
 
-const LeftSection = ({ setContainer, getUserContainers, containers }) => {
+const LeftSection = ({ setContainer, containers }) => {
     const [trackers, setTrackers] = React.useState([]);
     const token = localStorage.getItem('token');
     const decoded = jwtDecode(token);
-    // console.log(decoded); // Aquí tendrás acceso a los datos del JWT
     
     // Por ejemplo, si tienes un campo llamado "userId"
     const userName = decoded.user.name;
@@ -21,11 +20,8 @@ const LeftSection = ({ setContainer, getUserContainers, containers }) => {
     // ]
 
     React.useEffect(() => { // Esta función se ejecuta al cargar el componente miFuncionAlCargar();
-        // let items = getUserContainers();
-        
-        let items = containers;
-        setTrackers(items);
-    }, [getUserContainers, containers]); // El segundo argumento es un arreglo de dependencias, si está vacío solo se ejecuta una vez
+        setTrackers(containers);
+    }, [containers]); // El segundo argumento es un arreglo de dependencias, si está vacío solo se ejecuta una vez
 
     const handleItemClick = (containerID) => {
         setContainer(containerID);
@@ -45,7 +41,6 @@ const LeftSection = ({ setContainer, getUserContainers, containers }) => {
 
 LeftSection.propTypes = {
     setContainer: PropTypes.string,
-    getUserContainers: PropTypes.func,
     containers: PropTypes.array,
 };
 

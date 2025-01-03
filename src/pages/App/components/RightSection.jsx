@@ -76,7 +76,7 @@ const RightSection = ({ container, token }) => {
                     const data = await response.json();
                     console.log(response);
                     console.log(data);
-                    setShipment(data.message);
+                    setShipment(data.result);
                     setIsConsultingShipment(false);
                 }
             } catch (error) {

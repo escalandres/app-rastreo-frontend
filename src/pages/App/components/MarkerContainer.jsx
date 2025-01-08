@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 const markerZoom = 15;
 const MarkerContainer = ({ shipment, width, height, onItemClick }) => {
     const latestStatus = shipment.shipment_status[shipment.shipment_status.length - 1]
+    const sortedStatus = shipment.locations.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     return (
         <>
             <div className='px-4 py-2 text-left text-sm border border-[#ccc]'>
@@ -14,7 +16,7 @@ const MarkerContainer = ({ shipment, width, height, onItemClick }) => {
             <div className="scroll-container">
                 { 
                     shipment.locations?.length > 0 ? (
-                        shipment.locations?.map((item, index) => (
+                        sortedStatus.locations?.map((item, index) => (
                             <div key={index} className="scroll-item flex hover:bg-gray-200" onClick={() => onItemClick({lat: item.lat, lng: item.lng}, markerZoom)}>
                                 <div className="w-1/5 p-4 flex items-center justify-center">
                                     <img width={width} height={height} src="/icons/marker.png" alt="Descripción de la imagen" />

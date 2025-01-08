@@ -4,6 +4,7 @@ import { alerta, showLoader, hideLoader } from '../../js/general';
 
 import MarkerContainer from "./MarkerContainer";
 import MapItem from "./MapItem";
+import ShowTimeline from './ShowTimeline';
 
 const RightSection = ({ container, token }) => {
     const [center, setCenter] = React.useState();
@@ -117,6 +118,7 @@ const RightSection = ({ container, token }) => {
                 <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleHideAllMarkers}>
                     <i className="fa-solid fa-plus me-2"></i> Quitar marcadores
                 </button>
+                <ShowTimeline shipment_status={shipment.shipment_status} />
             </div>
             
             <div className="flex flex-grow overflow-hidden">

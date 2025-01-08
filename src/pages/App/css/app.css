@@ -1,102 +1,104 @@
-:root{
-    --active-link: #0d6efd;
-    --sidebar-grey: rgb(248,249,250);
-    --new-black: rgb(31,31,31);
-    --light-blue: rgb(194,231,255);
-    --scrollbar-color: rgb(199,199,199);
-    --scrollbar-hover: rgb(116,119,117);
-    --newbtn-gray: rgb(68,71,70);
-    --path-hover: rgb(227, 227, 227);
+:root {
+  --active-link: #0d6efd;
+  --sidebar-grey: rgb(248, 249, 250);
+  --new-black: rgb(31, 31, 31);
+  --light-blue: rgb(194, 231, 255);
+  --scrollbar-color: rgb(199, 199, 199);
+  --scrollbar-hover: rgb(116, 119, 117);
+  --newbtn-gray: rgb(68, 71, 70);
+  --path-hover: rgb(227, 227, 227);
 }
 
 .app__container {
-    display: flex;
-    gap: 10px;
-    flex-grow: 1;
-    overflow: auto;
+  display: flex;
+  gap: 10px;
+  flex-grow: 1;
+  overflow: auto;
 }
 
 .scroll-container {
-    width: 100%;
-    height: 100%; /* Ajusta la altura al 100% del contenedor padre */
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 0px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
+  width: 100%;
+  height: 100%; /* Ajusta la altura al 100% del contenedor padre */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
 }
 
 .map__container {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 0; /* Ajustar cualquier espacio entre elementos */
-    padding: 0; /* Elimina cualquier padding */
-    margin: 0; /* Elimina cualquier margen */
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0; /* Ajustar cualquier espacio entre elementos */
+  padding: 0; /* Elimina cualquier padding */
+  margin: 0; /* Elimina cualquier margen */
+  height: 100%;
 }
 
 .column {
-    flex: 1; /* Cada columna ocupa el 50% del ancho del contenedor */
-    padding: 10px;
-    background-color: #f8f9fa;
-    border: 1px solid #ccc;
+  flex: 1; /* Cada columna ocupa el 50% del ancho del contenedor */
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
 }
 
 .column-40 {
-    flex: 0 0 39%; /* La columna ocupará el 40% del ancho del contenedor */
-    padding: 10px;
-    background-color: #f8f9fa;
-    border: 0px solid #ccc;
+  flex: 0 0 39%; /* La columna ocupará el 40% del ancho del contenedor */
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 0px solid #ccc;
 }
 
 .column-60 {
-    flex: 0 0 60%; /* La columna ocupará el 60% del ancho del contenedor */
-    padding: 10px;
-    background-color: #f8f9fa;
-    border: 0px solid #ccc;
+  flex: 0 0 60%; /* La columna ocupará el 60% del ancho del contenedor */
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 0px solid #ccc;
 }
 
 .no-padding {
-    padding: 0px!important;
+  padding: 0px !important;
 }
 
-.h-50{
-    height: 52%!important;
+.h-50 {
+  height: 52% !important;
 }
 
 /* Personalización de la barra de desplazamiento vertical */
 ::-webkit-scrollbar {
-    width: 7px;
-    
+  width: 7px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-color); /* Color del "pulgares" (la parte que puedes arrastrar) */
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+  background: var(
+    --scrollbar-color
+  ); /* Color del "pulgares" (la parte que puedes arrastrar) */
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-hover); /* Color del "pulgares" en el estado de "hover" */
+  background: var(
+    --scrollbar-hover
+  ); /* Color del "pulgares" en el estado de "hover" */
 }
 
 ::-webkit-scrollbar-track {
-    background: #fff; /* Color de fondo de la barra de desplazamiento */
+  background: #fff; /* Color de fondo de la barra de desplazamiento */
 }
 
 /* Ocultar las flechas de la barra de desplazamiento */
 ::-webkit-scrollbar-button {
-    display: none;
+  display: none;
 }
-
 
 .red-bg {
-    background-color: red;
+  background-color: red;
 }
 .blue-bg {
-    background-color:blue;
+  background-color: blue;
 }

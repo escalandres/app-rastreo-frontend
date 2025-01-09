@@ -100,25 +100,27 @@ const RightSection = ({ container, token }) => {
     };
 
     const handleShowAllMarkers = () => {
-        setShowAllMarkers(true);
+        // setShowAllMarkers(true);
         setMarkers(items);
     };
     const handleHideAllMarkers = () => {
-        setShowAllMarkers(true);
+        // setShowAllMarkers(true);
         setMarkers([]);
     };
+    const handleToggleMarkers = () => { if (showAllMarkers) { handleHideAllMarkers(); } else { handleShowAllMarkers(); } setShowAllMarkers(!showAllMarkers); };
 
     return (
         <div className="flex flex-col h-full">
             <h1 className="text-left text-lg font-bold mb-4">Ubicación del envío</h1>
             <div className="flex items-center gap-4 mb-2">
-                <button className="px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150" onClick={handleShowAllMarkers}>
-                    <i className="fa-solid fa-plus me-2"></i> Mostrar todos los marcadores
+                <ShowTimeline shipment_status={shipment.shipment_status} />
+                {/* <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleShowAllMarkers}>
+                    <i className="fa-solid fa-eye me-2"></i> Mostrar marcadores
                 </button>
                 <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleHideAllMarkers}>
-                    <i className="fa-solid fa-plus me-2"></i> Quitar marcadores
-                </button>
-                <ShowTimeline shipment_status={shipment.shipment_status} />
+                    <i className="fa-solid fa-eye-slash me-2"></i> Quitar marcadores
+                </button> */}
+                <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleToggleMarkers} > <i className={`fa-solid ${showAllMarkers ? 'fa-eye-slash' : 'fa-eye'} me-2`}></i> {showAllMarkers ? 'Quitar marcadores' : 'Mostrar marcadores'} </button>
             </div>
             
             <div className="flex flex-grow overflow-hidden">

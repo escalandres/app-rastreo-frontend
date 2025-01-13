@@ -5,7 +5,7 @@ import '../css/app.css';
 const ScrollContainer = ({ items, width, height, onItemClick }) => {
   return (
     <div className="scroll-container overflow-y">
-      { items.length > 0 ? (
+      { items && items.length > 0 ? (
           items.map((item, index) => (
           <div key={index} className="scroll-item flex hover:bg-gray-200" onClick={() => onItemClick(item.id)}>
             <div className="w-1/3 p-4 flex items-center justify-center">

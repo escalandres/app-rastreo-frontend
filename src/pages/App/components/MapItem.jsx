@@ -32,7 +32,7 @@ const MapItem = ({ center, zoom, showMarkers, markers }) => {
                 onClick={handleMapClick}
             >
                 {/* Mostrar marcadores condicionalmente */} {
-                    showMarkers ? markers.map((marker, index) => ( <Marker key={index} position={marker.coordenadas} /> )) : <Marker position={center} />
+                    showMarkers ? markers.map((marker, index) => ( <Marker key={index} position={{ lat: marker.lat, lng: marker.lng }} /> )) : <Marker position={center} />
                 }
                 
             </Map>

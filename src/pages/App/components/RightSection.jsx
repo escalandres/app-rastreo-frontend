@@ -43,7 +43,7 @@ const RightSection = ({ container, token }) => {
         locations: [],
         shipment_status: []
     });
-    const items = [];
+    // const items = [];
     // const itemsTest = [
     //     { coordenadas: { lat: 19.378348, lng: -99.194816 }, date: "24/10/23,09:16:59-24", status: "En camino" },
     //     { coordenadas: { lat: 19.371597, lng: -99.203664 }, date: "24/10/23,09:51:53-24", status: "En camino" },
@@ -56,7 +56,7 @@ const RightSection = ({ container, token }) => {
     //     { coordenadas: { lat: 18.9270946, lng: -99.2514939 }, date: "24/10/23,11:56:05-24", status: "En camino" },
     //     { coordenadas: { lat: 18.912246, lng: -99.2865554 }, date: "24/10/23,12:56:05-24", status: "En camino" },
     // ];
-    const [markers, setMarkers] = React.useState(items);
+    const [markers, setMarkers] = React.useState(shipment);
     const containerRef = React.useRef(container);
 
     React.useEffect(() => { 
@@ -101,7 +101,7 @@ const RightSection = ({ container, token }) => {
 
     const handleShowAllMarkers = () => {
         // setShowAllMarkers(true);
-        setMarkers(items);
+        setMarkers(shipment.locations);
     };
     const handleHideAllMarkers = () => {
         // setShowAllMarkers(true);

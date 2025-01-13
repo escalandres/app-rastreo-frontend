@@ -1,6 +1,16 @@
+import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+import PropTypes from 'prop-types';
 
-const AddTracker = () => {
+const RegisterShipment = ({ containers, companies }) => {
+    const [selectedCompany, setSelectedCompany] = useState(null); 
+    const [services, setServices] = useState([]);
+    const handleCompanyChange = (event) => { 
+        const companyId = parseInt(event.target.value); 
+        const selected = companies.find((company) => company.id === companyId); 
+        setSelectedCompany(companyId); setServices(selected ? selected.services : []);
+    };
+
     return (
         <Dialog.Root id="trackerModal" className="fixed inset-0 z-10 overflow-y-auto hidden">
             <Dialog.Trigger className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150">
@@ -39,28 +49,35 @@ const AddTracker = () => {
                             </Dialog.Description>
                             <div className="flex items-center gap-4 mb-2">
                                 <fieldset className="Fieldset relative text-left">
-                                    <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Selecciona la empresa de paquetería</label>
-                                    <select id="countries" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>France</option>
-                                        <option>Germany</option>
+                                    <label htmlFor="companies" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Empresas de paquetería</label>
+                                    <select id="companies" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 "
+                                        onChange={handleCompanyChange}
+                                    >
+                                        <option value="">Seleccione una empresa</option>
+                                        {
+                                            companies && companies.length > 0 && companies.map((company, index) => (
+                                                <option key={index} value={company.id}>{company.name}</option>
+                                            ))
+                                        }
                                     </select>
                                 </fieldset>
                                 <fieldset className="Fieldset relative text-left">
-                                    <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Selecciona el servicio de envío</label>
-                                    <select id="countries" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>France</option>
-                                        <option>Germany</option>
+                                    <label htmlFor="services" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Servicio de envío</label>
+                                    <select id="services" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 "
+                                        disabled={!selectedCompany}
+                                    >
+                                        <option value="">Seleccione un servicio</option> 
+                                        {   services.map((service, index) => ( 
+                                                <option key={index} value={service.id}> {service.name} </option> 
+                                            ))
+                                        }
                                     </select>
                                 </fieldset>
                             </div>
                             <div className="flex items-center gap-4 mb-2">
                                 <div>
                                     <fieldset className="Fieldset relative text-left">
-                                        <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Guía de rastreo</label>
+                                        <label htmlFor="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Guía de rastreo</label>
                                         <fieldset className="Fieldset relative">
                                             <svg 
                                                 className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto fill-none stroke-gray-400"
@@ -88,12 +105,14 @@ const AddTracker = () => {
                                 </div>
                             
                                 <fieldset className="Fieldset relative text-left">
-                                    <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Selecciona tu rastreador</label>
-                                    <select id="countries" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>France</option>
-                                        <option>Germany</option>
+                                    <label htmlFor="trackers" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Rastreadores</label>
+                                    <select id="trackers" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
+                                        <option value="">Seleccione un rastreador</option>
+                                        {
+                                            containers && containers.length > 0 && containers.map((tracker, index) => (
+                                                <option key={index} value={tracker.id}>{tracker.nickname}</option>
+                                            ))
+                                        }
                                     </select>
                                 </fieldset>
                             </div>
@@ -111,4 +130,10 @@ const AddTracker = () => {
     );
 };
 
-export default AddTracker;
+RegisterShipment.propTypes = {
+    containers: PropTypes.array,
+    companies: PropTypes.array,
+};
+
+
+export default RegisterShipment;

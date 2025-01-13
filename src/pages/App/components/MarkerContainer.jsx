@@ -25,7 +25,7 @@ const MarkerContainer = ({ shipment, width, height, onItemClick }) => {
                                 </div>
                                 <div className="w-4/5 p-4 flex flex-col text-left text-sm">
                                     <p className="mb-2 font-bold">Coord: {item.lat},{item.lng}</p>
-                                    <p className="mb-2">Fecha: {item.date}</p>
+                                    <p className="mb-2">Fecha: {convertirFecha(item.date)}</p>
                                     <p>Estatus: En camino</p>
                                 </div>
                             </div>

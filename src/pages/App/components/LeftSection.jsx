@@ -5,8 +5,9 @@ import ScrollContainer from "./ScrollContainer";
 import AddTracker from './AddTracker';
 import RegisterShipment from './RegisterShipment';
 
-const LeftSection = ({ setContainer, containers }) => {
+const LeftSection = ({ setContainer, containers, companies }) => {
     const [trackers, setTrackers] = React.useState([]);
+    const [empresas, setEmpresas] = React.useState([]);
     const token = localStorage.getItem('token');
     const decoded = jwtDecode(token);
     
@@ -21,7 +22,8 @@ const LeftSection = ({ setContainer, containers }) => {
 
     React.useEffect(() => { // Esta función se ejecuta al cargar el componente miFuncionAlCargar();
         setTrackers(containers);
-    }, [containers]); // El segundo argumento es un arreglo de dependencias, si está vacío solo se ejecuta una vez
+        setEmpresas(companies);
+    }, [containers, companies]); // El segundo argumento es un arreglo de dependencias, si está vacío solo se ejecuta una vez
 
     const handleItemClick = (containerID) => {
         setContainer(containerID);
@@ -32,7 +34,7 @@ const LeftSection = ({ setContainer, containers }) => {
             <h1 className="text-left text-lg font-bold mb-4">Bienvenido, {userName}</h1>
             <div className="flex items-center gap-4 mb-2">
                 <AddTracker token={token}/>
-                <RegisterShipment />
+                <RegisterShipment companies={empresas} containers={trackers}/>
             </div>
             <ScrollContainer items={trackers} width={100} height={30} onItemClick={handleItemClick} />
         </div>
@@ -42,6 +44,7 @@ const LeftSection = ({ setContainer, containers }) => {
 LeftSection.propTypes = {
     setContainer: PropTypes.string,
     containers: PropTypes.array,
+    companies: PropTypes.array,
 };
 
 export default LeftSection;

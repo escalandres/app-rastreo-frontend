@@ -12,7 +12,7 @@ const RegisterShipment = ({ containers, companies, token }) => {
     const [tracker, setTracker] = useState('');
     const [company, setCompany] = useState('');
     const [service, setService] = useState('');
-    const [code, setCode] = useState('');
+    const [trackingCode, setTrackingCode] = useState('');
 
     const handleCompanyChange = (event) => { 
         const companyId = parseInt(event.target.value);
@@ -32,13 +32,13 @@ const RegisterShipment = ({ containers, companies, token }) => {
     
             try {
                 showLoader();
-                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/link-tracker`, {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/start-shipment`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ trackerID: tracker.trim(), companyID: company, serviceID: service, code: code }),
+                    body: JSON.stringify({ trackerID: tracker.trim(), companyID: company, serviceID: service, trackingCode: trackingCode }),
                 });
                 hideLoader();
     
@@ -209,7 +209,7 @@ const RegisterShipment = ({ containers, companies, token }) => {
                                             </svg>
                                             <input
                                                 className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                                                onChange={(e) => setCode(e.target.value)}
+                                                onChange={(e) => setTrackingCode(e.target.value)}
                                                 placeholder="Ingrese el código y/o guía de rastreo"
                                             />
                                         </fieldset>

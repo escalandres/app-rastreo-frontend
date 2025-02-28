@@ -1,15 +1,66 @@
 import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import PropTypes from 'prop-types';
+import { alerta, showLoader, hideLoader } from '../../js/general';
 
-const RegisterShipment = ({ containers, companies }) => {
+
+const RegisterShipment = ({ containers, companies, token }) => {
+    const [isSubmitting, setIsSubmitting] = useState(false); // Estado para controlar si ya se ha enviado el formulario
     const [selectedCompany, setSelectedCompany] = useState(null); 
+    const [isOpen, setIsOpen] = useState(false); // Estado para controlar la apertura y cierre del modal
     const [services, setServices] = useState([]);
+    const [tracker, setTracker] = useState('');
+    const [company, setCompany] = useState('');
+    const [service, setService] = useState('');
+    const [code, setCode] = useState('');
+
     const handleCompanyChange = (event) => { 
-        const companyId = parseInt(event.target.value); 
+        const companyId = parseInt(event.target.value);
+        setCompany(companyId); 
         const selected = companies.find((company) => company.id === companyId); 
         setSelectedCompany(companyId); setServices(selected ? selected.services : []);
     };
+
+    const handleStartShipment = async (e) => {
+            e.preventDefault();
+    
+            if (isSubmitting) {
+                return; // Evita que el formulario se vuelva a enviar
+            }
+    
+            setIsSubmitting(true);
+    
+            try {
+                showLoader();
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/link-tracker`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ trackerID: tracker.trim(), companyID: company, serviceID: service, code: code }),
+                });
+                hideLoader();
+    
+                if (!response.ok) {
+                    alerta.autoError('Error al vincular el rastreador. Inténtelo nuevamente.');
+                } else {
+                    const data = await response.json();
+                    data.success ? alerta.autoSuccess(data.message) : alerta.autoError(data.message);
+                    // Cerrar el modal después de mostrar la alerta
+                    setTimeout(() => {
+                        setIsOpen(false);
+                        // Recargar la página actual
+                        location.reload();
+                    }, 500); // Ajusta el tiempo según sea necesario
+                }
+            } catch (error) {
+                hideLoader();
+                console.log('error', error.message);
+            } finally {
+                setIsSubmitting(false); // Restablece el estado de envío
+            }
+        };
 
     return (
         <Dialog.Root id="trackerModal" className="fixed inset-0 z-10 overflow-y-auto hidden">
@@ -65,6 +116,7 @@ const RegisterShipment = ({ containers, companies }) => {
                                     <label htmlFor="services" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Servicio de envío</label>
                                     <select id="services" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 "
                                         disabled={!selectedCompany}
+                                        onChange={(e) => setService(e.target.value)}
                                     >
                                         <option value="">Seleccione un servicio</option> 
                                         {   services.map((service, index) => ( 
@@ -74,7 +126,7 @@ const RegisterShipment = ({ containers, companies }) => {
                                     </select>
                                 </fieldset>
                             </div>
-                            <div className="flex items-center gap-4 mb-2">
+                            {/* <div className="flex items-center gap-4 mb-2">
                                 <div>
                                     <fieldset className="Fieldset relative text-left">
                                         <label htmlFor="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Guía de rastreo</label>
@@ -115,11 +167,61 @@ const RegisterShipment = ({ containers, companies }) => {
                                         }
                                     </select>
                                 </fieldset>
+                            </div> */}
+                            <div className="flex items-center gap-4 mb-2">
+                                <div className="w-full">
+                                    <fieldset className="Fieldset relative text-left">
+                                        <label htmlFor="trackers" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Rastreadores</label>
+                                        <select id="trackers" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 "
+                                            onChange={(e) => setTracker(e.target.value)}
+                                        >
+                                            <option value="">Seleccione un rastreador</option>
+                                            {
+                                                containers && containers.length > 0 && containers.map((tracker, index) => (
+                                                    <option key={index} value={tracker.id}>{tracker.nickname}</option>
+                                                ))
+                                            }
+                                        </select>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-4 mb-2">
+                                <div className="w-full">
+                                    <fieldset className="Fieldset w-full text-left">
+                                        <label htmlFor="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Guía de rastreo</label>
+                                        <fieldset className="Fieldset relative">
+                                            <svg 
+                                                className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto fill-none stroke-gray-400"
+                                                version="1.1" 
+                                                id="Icons" 
+                                                xmlns="http://www.w3.org/2000/svg" 
+                                                xmlnsXlink="http://www.w3.org/1999/xlink" 
+                                                viewBox="0 0 24 24" 
+                                                xmlSpace="preserve"
+                                            >
+                                                <path d="M8 8L8 16" />
+                                                <path d="M12 8L12 16" />
+                                                <path d="M16 8L16 16" />
+                                                <path d="M8.976 21C4.05476 21 3 19.9453 3 15.024" />
+                                                <path d="M20.9999 15.024C20.9999 19.9453 19.9452 21 15.0239 21" />
+                                                <path d="M15.0239 3C19.9452 3 20.9999 4.05476 20.9999 8.976" />
+                                                <path d="M3 8.976C3 4.05476 4.05476 3 8.976 3" />
+                                            </svg>
+                                            <input
+                                                className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                                onChange={(e) => setCode(e.target.value)}
+                                                placeholder="Ingrese el código y/o guía de rastreo"
+                                            />
+                                        </fieldset>
+                                    </fieldset>
+                                </div>
                             </div>
                             
                             <Dialog.Close asChild>
-                                <button className=" w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2">
-                                    Vincular rastreador
+                                <button className=" w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2"
+                                    onClick={handleStartShipment}
+                                >
+                                    Registrar nuevo envío
                                 </button>
                             </Dialog.Close>
                         </div>
@@ -133,6 +235,7 @@ const RegisterShipment = ({ containers, companies }) => {
 RegisterShipment.propTypes = {
     containers: PropTypes.array,
     companies: PropTypes.array,
+    token: PropTypes.string
 };
 
 

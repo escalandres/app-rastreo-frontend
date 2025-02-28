@@ -34,7 +34,7 @@ const LeftSection = ({ setContainer, containers, companies }) => {
             <h1 className="text-left text-lg font-bold mb-4">Bienvenido, {userName}</h1>
             <div className="flex items-center gap-4 mb-2">
                 <AddTracker token={token}/>
-                <RegisterShipment companies={empresas} containers={trackers}/>
+                <RegisterShipment companies={empresas} containers={trackers} token={token}/>
             </div>
             <ScrollContainer items={trackers} width={100} height={30} onItemClick={handleItemClick} />
         </div>

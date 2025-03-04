@@ -9,7 +9,7 @@ const MarkerContainer = ({ shipment, width, height, onItemClick }) => {
     return (
         <>
             <div className='px-4 py-2 text-left text-sm border border-[#ccc]'>
-                <p>Empresa: { `${shipment.shipment_data.company} ${shipment.shipment_data.service}`}.</p>
+                <p>Empresa: { `${shipment.shipment_data.company} ${shipment.shipment_data.service ?  shipment.shipment_data.service : ''}`}.</p>
                 <p>Guía rastreo: { shipment.shipment_data.tracking_number}.</p>
                 <p>Fecha envío: {convertirFecha(shipment.start_date)}.</p>
                 <p>Fecha llegada: {convertirFecha(shipment.delivery_date)}.</p>

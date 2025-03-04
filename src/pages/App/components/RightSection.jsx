@@ -11,24 +11,7 @@ const RightSection = ({ container, token }) => {
     const [zoom, setZoom] = React.useState();
     const [isConsultingShipment, setIsConsultingShipment] = React.useState(false);
     const [showAllMarkers, setShowAllMarkers] = React.useState(false);
-    // const [shipment, setShipment] = React.useState({
-    //     id: 1,
-    //     container_id: 1,
-    //     start_date: "24/10/23,09:16:59-24",
-    //     delivery_date: null,
-    //     shipment_data: {
-    //         company: "DHL",
-    //         service_id: "express",
-    //         service: "Express",
-    //         tracking_number: "2989923510",
-    //     },
-    //     locations: [],
-    //     shipment_status: [{
-    //         timestamp: "24/10/23,09:16:59-24",
-    //         description: "En tránsito | El envío ha salido para su entrega",
-    //         location: "Ciudad de México, CDMX"
-    //     }]
-    // });
+
     const [shipment, setShipment] = React.useState({
         id: 0,
         container_id: 0,
@@ -43,19 +26,7 @@ const RightSection = ({ container, token }) => {
         locations: [],
         shipment_status: []
     });
-    // const items = [];
-    // const itemsTest = [
-    //     { coordenadas: { lat: 19.378348, lng: -99.194816 }, date: "24/10/23,09:16:59-24", status: "En camino" },
-    //     { coordenadas: { lat: 19.371597, lng: -99.203664 }, date: "24/10/23,09:51:53-24", status: "En camino" },
-    //     { coordenadas: { lat: 19.336248, lng: -99.176434 }, date: "24/10/23,09:56:05-24", status: "En camino" },
-    //     { coordenadas: { lat: 19.335635, lng: -99.157027 }, date: "24/10/23,09:58:05-24", status: "En camino" },
-    //     { coordenadas: { lat: 19.357984, lng: -99.160291 }, date: "24/10/23,10:05:05-24", status: "En camino" },
-    //     { coordenadas: { lat: 19.367132, lng: -99.126199 }, date: "24/10/23,10:16:05-24", status: "En camino" },
-    //     { coordenadas: { lat: 19.382153, lng: -99.085371 }, date: "24/10/23,10:56:05-24", status: "En camino" },
-    //     { coordenadas: { lat: 19.1495247, lng: -99.0237388 }, date: "24/10/23,10:56:05-24", status: "En camino" },
-    //     { coordenadas: { lat: 18.9270946, lng: -99.2514939 }, date: "24/10/23,11:56:05-24", status: "En camino" },
-    //     { coordenadas: { lat: 18.912246, lng: -99.2865554 }, date: "24/10/23,12:56:05-24", status: "En camino" },
-    // ];
+
     const [markers, setMarkers] = React.useState(shipment);
     const containerRef = React.useRef(container);
 

@@ -3,7 +3,9 @@ import * as Dialog from "@radix-ui/react-dialog";
 const EditTracker = () => {
     return (
         <Dialog.Root id="trackerModal" className="fixed inset-0 z-10 overflow-y-auto hidden">
-            <Dialog.Trigger className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150">
+            <Dialog.Trigger className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150"
+                onClick={(event) => { event.stopPropagation() }}
+            >
                 <i className="fa-solid fa-pen-to-square me-2"></i> Editar
             </Dialog.Trigger>
             <Dialog.Portal>
@@ -11,7 +13,9 @@ const EditTracker = () => {
                 <Dialog.Content className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full max-w-lg mx-auto px-4">
                     <div className="bg-white rounded-md shadow-lg px-4 py-6">
                         <div className="flex items-center justify-end">
-                            <Dialog.Close className="p-2 text-gray-400 rounded-md hover:bg-gray-100">
+                            <Dialog.Close className="p-2 text-gray-400 rounded-md hover:bg-gray-100"
+                                onClick={(event) => { event.stopPropagation() }}
+                            >
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="w-5 h-5 mx-auto"
@@ -37,26 +41,6 @@ const EditTracker = () => {
                                 Una vez hecho, podrá gestionar y monitorear la ubicación de su(s) dispositivo(s).
                                 </p>
                             </Dialog.Description>
-                            <div className="flex items-center gap-4 mb-2">
-                                <fieldset className="Fieldset relative text-left">
-                                    <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Selecciona la empresa de paquetería</label>
-                                    <select id="countries" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>France</option>
-                                        <option>Germany</option>
-                                    </select>
-                                </fieldset>
-                                <fieldset className="Fieldset relative text-left">
-                                    <label for="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Selecciona el servicio de envío</label>
-                                    <select id="countries" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>France</option>
-                                        <option>Germany</option>
-                                    </select>
-                                </fieldset>
-                            </div>
                             <div className="flex items-center gap-4 mb-2">
                                 <div>
                                     <fieldset className="Fieldset relative text-left">

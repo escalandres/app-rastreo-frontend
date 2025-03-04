@@ -1,5 +1,5 @@
 export const convertirFecha = (cadena = '') => { 
-    if(cadena === '') return '';
+    if(cadena === '' || !cadena) return '';
     const meses = [ "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" ]; 
     const fecha = new Date(cadena); 
     const dia = fecha.getDate(); 

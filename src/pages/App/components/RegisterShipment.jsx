@@ -15,7 +15,8 @@ const RegisterShipment = ({ containers, companies, token }) => {
     const [trackingCode, setTrackingCode] = useState('');
 
     const handleCompanyChange = (event) => { 
-        const companyId = parseInt(event.target.value);
+        const companyId = event.target.value;
+        alert(companyId);
         setCompany(companyId); 
         const selected = companies.find((company) => company.id === companyId); 
         setSelectedCompany(companyId); setServices(selected ? selected.services : []);
@@ -38,12 +39,12 @@ const RegisterShipment = ({ containers, companies, token }) => {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ trackerID: tracker.trim(), companyID: company, serviceID: service, trackingCode: trackingCode }),
+                    body: JSON.stringify({ trackerID: tracker.trim(), companyID: company.trim(), serviceID: service.trim(), trackingCode: trackingCode.trim() }),
                 });
                 hideLoader();
     
                 if (!response.ok) {
-                    alerta.autoError('Error al vincular el rastreador. Inténtelo nuevamente.');
+                    alerta.autoError('Error al iniciar el envío. Inténtelo nuevamente.');
                 } else {
                     const data = await response.json();
                     data.success ? alerta.autoSuccess(data.message) : alerta.autoError(data.message);
@@ -63,8 +64,10 @@ const RegisterShipment = ({ containers, companies, token }) => {
         };
 
     return (
-        <Dialog.Root id="trackerModal" className="fixed inset-0 z-10 overflow-y-auto hidden">
-            <Dialog.Trigger className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150">
+        <Dialog.Root id="trackerModal" className="fixed inset-0 z-10 overflow-y-auto hidden" open={isOpen} onOpenChange={setIsOpen}>
+            <Dialog.Trigger className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150"
+                onClick={() => setIsOpen(true)}
+            >
                 <i className="fa-solid fa-play me-2"></i> Iniciar envío
             </Dialog.Trigger>
             <Dialog.Portal>

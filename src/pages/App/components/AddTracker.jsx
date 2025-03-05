@@ -39,7 +39,7 @@ const AddTracker = ({ token }) => {
                     setIsOpen(false);
                     // Recargar la página actual
                     location.reload();
-                }, 500); // Ajusta el tiempo según sea necesario
+                }, 3000); // Ajusta el tiempo según sea necesario
             }
         } catch (error) {
             hideLoader();

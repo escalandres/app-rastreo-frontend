@@ -31,12 +31,12 @@ const EditTracker = ({ token, tracker }) => {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ trackerID: tracker.id, nickname: nickname.trim(), img: selectedImage }),
+                body: JSON.stringify({ trackerId: tracker.id, nickname: nickname.trim(), img: selectedImage }),
             });
             hideLoader();
 
             if (!response.ok) {
-                alerta.autoError('Error al vincular el rastreador. Inténtelo nuevamente.');
+                alerta.autoError('Error al guardar la información. Inténtelo nuevamente.');
             } else {
                 const data = await response.json();
                 data.success ? alerta.autoSuccess(data.message) : alerta.autoError(data.message);
@@ -45,7 +45,7 @@ const EditTracker = ({ token, tracker }) => {
                     setIsOpen(false);
                     // Recargar la página actual
                     location.reload();
-                }, 500); // Ajusta el tiempo según sea necesario
+                }, 3000); // Ajusta el tiempo según sea necesario
             }
         } catch (error) {
             hideLoader();

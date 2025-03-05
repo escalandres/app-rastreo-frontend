@@ -9,14 +9,14 @@ const ScrollContainer = ({ items, width, height, onItemClick }) => {
           items.map((item, index) => (
           <div key={index} className="scroll-item flex hover:bg-gray-200" onClick={() => onItemClick(item.id)}>
             <div className="w-1/3 p-4 flex items-center justify-center">
-              <img width={width} height={height} src={item.img} alt="Descripción de la imagen" className="" />
+              <img width={width} height={height} src={item.img.src} alt={item.img.alt} className="" />
             </div>
             <div className="w-2/3 p-4 flex flex-col text-left">
               <p className="mb-2 font-bold">Contenedor: {item.id}</p>
               <p className="mb-2 font-bold">{item.nickname}</p>
               <p className="mb-2">Texto 2</p>
               <p>Texto 3</p>
-              <EditTracker />
+              <EditTracker tracker={item} />
             </div>
           </div>
         ))

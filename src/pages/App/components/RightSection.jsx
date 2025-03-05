@@ -66,6 +66,7 @@ const RightSection = ({ container, token }) => {
     }, [container, isConsultingShipment, token]);
 
     const handleItemClick = (coordenadas, aumento) => {
+        alert(`Click en el marcador; ${coordenadas.lat}, ${coordenadas.lng}`);
         setCenter(coordenadas);
         setZoom(aumento);
     };
@@ -95,10 +96,10 @@ const RightSection = ({ container, token }) => {
             </div>
             
             <div className="flex flex-grow overflow-hidden">
-                <div className="w-1/2 h-full no-padding flex flex-col">
+                <div className="w-3/5 h-full no-padding flex flex-col">
                     <MapItem zoom={zoom} center={center} showMarkers={showAllMarkers} markers={markers} />
                 </div>
-                <div className="w-1/2 h-full no-padding flex flex-col">
+                <div className="w-2/5 h-full no-padding flex flex-col">
                     <MarkerContainer shipment={shipment} width={40} height={40} onItemClick={handleItemClick} />
                 </div>
             </div>

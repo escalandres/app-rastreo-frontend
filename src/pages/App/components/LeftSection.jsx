@@ -36,7 +36,7 @@ const LeftSection = ({ setContainer, containers, companies }) => {
                 <AddTracker token={token}/>
                 <RegisterShipment companies={empresas} containers={trackers} token={token}/>
             </div>
-            <ScrollContainer items={trackers} width={100} height={30} onItemClick={handleItemClick} />
+            <ScrollContainer items={trackers} token={token} width={100} height={30} onItemClick={handleItemClick} />
         </div>
     );
 }

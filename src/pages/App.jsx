@@ -59,10 +59,10 @@ const App = () => {
         <div className='bg-gray-10 dark:bg-gray-50 flex flex-col h-screen'>
             <Header token={decoded}/>
             <div className="flex-grow app__container text-black px-4 py-4 overflow-auto">
-                <div className="column-40">
+                <div className="column-30">
                     <LeftSection setContainer={setContainer} containers={containers} companies={companies} />
                 </div>
-                <div className="column-60">
+                <div className="column-70">
                     <RightSection token={token} container={container} />
                 </div>
             </div>

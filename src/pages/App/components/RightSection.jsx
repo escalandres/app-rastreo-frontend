@@ -66,7 +66,6 @@ const RightSection = ({ container, token }) => {
     }, [container, isConsultingShipment, token]);
 
     const handleItemClick = (coordenadas, aumento) => {
-        alert(`Click en el marcador; ${coordenadas.lat}, ${coordenadas.lng}`);
         setCenter(coordenadas);
         setZoom(aumento);
     };

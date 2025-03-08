@@ -55,9 +55,6 @@ const EditTracker = ({ token, tracker }) => {
         }
     };
 
-
-
-
     return (
         <Dialog.Root id="trackerModal" className="fixed inset-0 z-10 overflow-y-auto hidden"
             open={isOpen} onOpenChange={setIsOpen}

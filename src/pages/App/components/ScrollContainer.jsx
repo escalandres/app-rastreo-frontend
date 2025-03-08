@@ -12,9 +12,9 @@ const ScrollContainer = ({ items, width, height, onItemClick, token }) => {
               <img width={width} height={height} src={item.img.src} alt={item.img.alt} className="" />
             </div>
             <div className="w-2/3 p-4 flex flex-col text-left">
-              <p className="mb-2 font-bold">Contenedor: {item.id}</p>
+              <p className="mb-2 text-sm">Contenedor: {item.id}</p>
               <p className="mb-2 font-bold">{item.nickname}</p>
-              <p className="mb-2">Texto 2</p>
+              <p className="mb-2 text-xs">Vinculado: {item.linking_date}</p>
               <p>Texto 3</p>
               <EditTracker tracker={item} token={token} />
             </div>

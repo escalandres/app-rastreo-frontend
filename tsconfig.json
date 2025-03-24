@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "allowJs": true, // Permite usar archivos .jsx
+      "jsx": "react-jsx", // O "react" para versiones anteriores de React
+      "target": "es6", // O cualquier versión de JavaScript que prefieras
+      "module": "esnext",
+      "strict": true,
+      "esModuleInterop": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
+  }

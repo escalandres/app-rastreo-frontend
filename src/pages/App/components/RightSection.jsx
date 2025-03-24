@@ -9,6 +9,8 @@ import ShowTimeline from './ShowTimeline';
 const RightSection = ({ container, token }) => {
     const [center, setCenter] = React.useState();
     const [zoom, setZoom] = React.useState();
+    const [isCellTower, setIsCellTower] = React.useState();
+    const [radius, setRadius] = React.useState();
     const [isConsultingShipment, setIsConsultingShipment] = React.useState(false);
     const [showAllMarkers, setShowAllMarkers] = React.useState(false);
 
@@ -46,8 +48,8 @@ const RightSection = ({ container, token }) => {
                     alerta.error('No se pudo obtener la información de envío de este rastreador. Inténtelo nuevamente.');
                 } else {
                     const data = await response.json();
-                    console.log(response);
-                    console.log(data);
+                    // console.log(response);
+                    // console.log(data);
                     setShipment(data.result);
                     setIsConsultingShipment(false);
                 }
@@ -65,9 +67,11 @@ const RightSection = ({ container, token }) => {
         } 
     }, [container, isConsultingShipment, token]);
 
-    const handleItemClick = (coordenadas, aumento) => {
+    const handleItemClick = (coordenadas, aumento, esTorreCelular, radio) => {
         setCenter(coordenadas);
         setZoom(aumento);
+        setIsCellTower(esTorreCelular);
+        setRadius(radio);
     };
 
     const handleShowAllMarkers = () => {
@@ -96,7 +100,7 @@ const RightSection = ({ container, token }) => {
             
             <div className="flex flex-grow overflow-hidden">
                 <div className="w-3/5 h-full no-padding flex flex-col">
-                    <MapItem zoom={zoom} center={center} showMarkers={showAllMarkers} markers={markers} />
+                    <MapItem zoom={zoom} center={center} showMarkers={showAllMarkers} markers={markers} isCellTower={isCellTower} radius={radius} />
                 </div>
                 <div className="w-2/5 h-full no-padding flex flex-col">
                     <MarkerContainer shipment={shipment} width={40} height={40} onItemClick={handleItemClick} />

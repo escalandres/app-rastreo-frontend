@@ -1,7 +1,7 @@
 import { APIProvider, Map, Marker, InfoWindow } from '@vis.gl/react-google-maps';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Circle} from './components';
+import { Circle } from './map-components/Circle.tsx';
 
 const MapItem = ({ center, zoom, showMarkers, markers, isCellTower,radius }) => {
     const initialCenter = { lat: 23.9475222, lng: -99.4789187 };

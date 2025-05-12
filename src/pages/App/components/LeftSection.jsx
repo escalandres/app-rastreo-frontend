@@ -25,8 +25,9 @@ const LeftSection = ({ setContainer, containers, companies }) => {
         setEmpresas(companies);
     }, [containers, companies]); // El segundo argumento es un arreglo de dependencias, si está vacío solo se ejecuta una vez
 
-    const handleItemClick = (containerID) => {
-        setContainer(containerID);
+    const handleItemClick = (container) => {
+        console.log('handleItemClick', container);
+        setContainer(container);
     };
 
     return (
@@ -42,7 +43,7 @@ const LeftSection = ({ setContainer, containers, companies }) => {
 }
 
 LeftSection.propTypes = {
-    setContainer: PropTypes.string,
+    setContainer: PropTypes.func,
     containers: PropTypes.array,
     companies: PropTypes.array,
 };

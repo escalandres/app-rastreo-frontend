@@ -8,7 +8,7 @@ const ScrollContainer = ({ items, width, height, onItemClick, token }) => {
     <div className="scroll-container overflow-y">
       { items && items.length > 0 ? (
           items.map((item, index) => (
-          <div key={index} className="scroll-item flex hover:bg-gray-200" onClick={() => onItemClick(item.id)}>
+          <div key={index} className="scroll-item flex hover:bg-gray-200" onClick={() => onItemClick({id: item.id, name: item.nickname})}>
             <div className="w-1/3 p-4 flex items-center justify-center">
               <img width={width} height={height} src={item.img.src} alt={item.img.alt} className="" />
             </div>

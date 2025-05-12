@@ -55,6 +55,7 @@ const MapItem = ({ center, zoom, showMarkers, markers, isCellTower,radius }) => 
                                         draggable={false} // Asegúrate de que no sea arrastrable
                                         onClick={handleMapClick}
                                     />
+                                    <Marker position={center} />
                                 </>
                             ) : <Marker position={center} />
                 }

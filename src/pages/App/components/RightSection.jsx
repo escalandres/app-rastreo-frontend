@@ -5,6 +5,7 @@ import { alerta, showLoader, hideLoader } from '../../js/general';
 import MarkerContainer from "./MarkerContainer";
 import MapItem from "./MapItem";
 import ShowTimeline from './ShowTimeline';
+import GenerateReport from './GenerateReport';
 
 const RightSection = ({ container, token }) => {
     const [center, setCenter] = React.useState();
@@ -30,8 +31,9 @@ const RightSection = ({ container, token }) => {
     });
 
     const [markers, setMarkers] = React.useState(shipment);
-    const containerRef = React.useRef(container);
-
+    const containerRef = React.useRef(container.id);
+    // console.log('containerRef', containerRef.current);
+    // console.log('container', container);
     React.useEffect(() => { 
         const getContainerCurrentShipment = async (trackerID) => {
             try {
@@ -58,11 +60,11 @@ const RightSection = ({ container, token }) => {
             }
         };
 
-        if (container !== '' && containerRef.current !== container) {
-            containerRef.current = container;
+        if (container.id !== '' && containerRef.current !== container.id) {
+            containerRef.current = container.id;
             if (!isConsultingShipment) {
                 setIsConsultingShipment(true);
-                getContainerCurrentShipment(container);
+                getContainerCurrentShipment(container.id);
             }
         } 
     }, [container, isConsultingShipment, token]);
@@ -89,6 +91,7 @@ const RightSection = ({ container, token }) => {
             <h1 className="text-left text-lg font-bold mb-4">Ubicación del envío</h1>
             <div className="flex items-center gap-4 mb-2">
                 <ShowTimeline shipment_status={shipment.shipment_status} />
+                <GenerateReport container={container} />
                 {/* <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleShowAllMarkers}>
                     <i className="fa-solid fa-eye me-2"></i> Mostrar marcadores
                 </button>
@@ -113,7 +116,7 @@ const RightSection = ({ container, token }) => {
 
 RightSection.propTypes = {
     token: PropTypes.string,
-    container: PropTypes.string
+    container: PropTypes.object
 };
 
 export default RightSection;

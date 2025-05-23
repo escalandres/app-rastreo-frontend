@@ -6,21 +6,11 @@ import { alerta, showLoader, hideLoader } from '../../js/general';
 
 const GenerateReport = ({ container }) => {
     const [isSubmitting, setIsSubmitting] = useState(false); // Estado para controlar si ya se ha enviado el formulario
-    const [selectedCompany, setSelectedCompany] = useState(null); 
     const [isOpen, setIsOpen] = useState(false); // Estado para controlar la apertura y cierre del modal
     const [shipments, setShipments] = useState([]);
     // const [selectedShipment, setselectedShipment] = useState(0);
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-
-    // const handleCompanyChange = (event) => { 
-    //     const companyId = event.target.value;
-    //     alert(companyId);
-    //     setCompany(companyId); 
-    //     const selected = companies.find((company) => company.id === companyId); 
-    //     setSelectedCompany(companyId); setServices(selected ? selected.services : []);
-    // };
-
+    // const [startDate, setStartDate] = useState('');
+    // const [endDate, setEndDate] = useState('');
 
     const handleDownload = async (file) => {
         // Simulación de la respuesta del backend
@@ -43,8 +33,6 @@ const GenerateReport = ({ container }) => {
         // Liberar el objeto URL
         window.URL.revokeObjectURL(url);
     }
-
-
 
     const getTrackerShipments = async () => {
         // e.preventDefault();
@@ -212,7 +200,7 @@ const GenerateReport = ({ container }) => {
                             <div className="flex items-center gap-4 mb-2">
                                 <div className="w-full">
                                     <fieldset className="Fieldset relative text-left">
-                                        <label htmlFor="shipments" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Rastreadores</label>
+                                        <label htmlFor="shipments" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Envíos</label>
                                         <select id="shipments" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 "
                                             // onChange={(e) => setTracker(e.target.value)}
                                         >

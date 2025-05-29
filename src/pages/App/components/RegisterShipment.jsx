@@ -15,11 +15,15 @@ const RegisterShipment = ({ containers, companies, token }) => {
     const [trackingCode, setTrackingCode] = useState('');
 
     const handleCompanyChange = (event) => { 
-        const companyId = event.target.value;
-        alert(companyId);
-        setCompany(companyId); 
-        const selected = companies.find((company) => company.id === companyId); 
-        setSelectedCompany(companyId); setServices(selected ? selected.services : []);
+        const companyName = event.target.value;
+        //alert(companyName);
+        setCompany(companyName); 
+        console.log('Selected company ID:', companyName);
+        console.log("companies", companies);
+
+        const selected = companies.find((company) => company.name == companyName);
+        console.log("selected",selected); 
+        setSelectedCompany(companyName); setServices(selected ? selected.services : []);
     };
 
     const handleStartShipment = async (e) => {
@@ -110,7 +114,7 @@ const RegisterShipment = ({ containers, companies, token }) => {
                                         <option value="">Seleccione una empresa</option>
                                         {
                                             companies && companies.length > 0 && companies.map((company, index) => (
-                                                <option key={index} value={company.id}>{company.name}</option>
+                                                <option key={index} value={company.name}>{company.name}</option>
                                             ))
                                         }
                                     </select>

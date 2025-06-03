@@ -105,10 +105,17 @@ const RightSection = ({ container, token }) => {
             //     // `MySwal` is a subclass of `Swal` with all the same instance & static methods
             //     MySwal.showLoading()
             // },
-        }).then(async () => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
+                if(shipment.delivery_date !== null) return MySwal.fire(<p>El envío ya ha finalizado</p>)
                 let response = await terminarEnvio();
-                return MySwal.fire(<p>{response.message}</p>)
+                if(response.success){
+                    alerta.autoSuccess(response.message);
+                    window.location.reload();
+                }
+
+                alerta.error(response.message);
+
             } else if (result.isDismissed) {
                 // Si cancelaron o cerraron la alerta
                 console.log("Cancelado");
@@ -121,9 +128,9 @@ const RightSection = ({ container, token }) => {
     async function terminarEnvio(){
         try {
             showLoader();
-            const queryParams = new URLSearchParams({ trackerID: shipment.id }).toString();
+            const queryParams = new URLSearchParams({ shipmentId: shipment.id }).toString();
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/end-shipment?${queryParams}`, {
-                method: 'DELETE',
+                method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -134,8 +141,7 @@ const RightSection = ({ container, token }) => {
             } else {
                 const data = await response.json();
 
-                setShipment(data.result);
-                setIsConsultingShipment(false);
+                return data;
             }
         } catch (error) {
             console.error('Error:', error);
@@ -166,10 +172,10 @@ const RightSection = ({ container, token }) => {
             </div>
             
             <div className="flex flex-grow overflow-hidden">
-                <div className="w-3/5 h-full no-padding flex flex-col">
+                <div className="w-4/5 h-full no-padding flex flex-col">
                     <MapItem zoom={zoom} center={center} showMarkers={showAllMarkers} markers={markers} isCellTower={isCellTower} radius={radius} />
                 </div>
-                <div className="w-2/5 h-full no-padding flex flex-col">
+                <div className="w-1/5 h-full no-padding flex flex-col">
                     <MarkerContainer shipment={shipment} width={40} height={40} onItemClick={handleItemClick} />
                 </div>
             </div>

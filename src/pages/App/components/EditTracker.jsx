@@ -26,7 +26,7 @@ const EditTracker = ({ token, tracker }) => {
         try {
             showLoader();
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/update-tracker`, {
-                method: 'POST',
+                method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { alerta, showLoader, hideLoader } from '../../js/general';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 import MarkerContainer from "./MarkerContainer";
 import MapItem from "./MapItem";
@@ -86,19 +88,81 @@ const RightSection = ({ container, token }) => {
     };
     const handleToggleMarkers = () => { if (showAllMarkers) { handleHideAllMarkers(); } else { handleShowAllMarkers(); } setShowAllMarkers(!showAllMarkers); };
 
+    const handleEndShipment = async() => {
+        console.log("shipment", shipment)
+        const MySwal = withReactContent(Swal)
+
+        MySwal.fire({
+            title: <p>¿Estás seguro de terminar tu envío?</p>,
+            html: <p>¡No podrás modificar esto!</p>,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Finalizar",
+            cancelButtonText: "Cancelar",
+            // didOpen: () => {
+            //     // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+            //     MySwal.showLoading()
+            // },
+        }).then(async () => {
+            if (result.isConfirmed) {
+                let response = await terminarEnvio();
+                return MySwal.fire(<p>{response.message}</p>)
+            } else if (result.isDismissed) {
+                // Si cancelaron o cerraron la alerta
+                console.log("Cancelado");
+            }
+            
+            
+        })
+    }
+
+    async function terminarEnvio(){
+        try {
+            showLoader();
+            const queryParams = new URLSearchParams({ trackerID: shipment.id }).toString();
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/end-shipment?${queryParams}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (!response.ok) {
+                alerta.error('No se pudo obtener la información de envío de este rastreador. Inténtelo nuevamente.');
+            } else {
+                const data = await response.json();
+
+                setShipment(data.result);
+                setIsConsultingShipment(false);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        } finally{
+            hideLoader();
+        }
+    }
+
     return (
         <div className="flex flex-col h-full">
             <h1 className="text-left text-lg font-bold mb-4">Ubicación del envío</h1>
             <div className="flex items-center gap-4 mb-2">
                 <ShowTimeline shipment_status={shipment.shipment_status} />
                 <GenerateReport container={container} />
-                {/* <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleShowAllMarkers}>
-                    <i className="fa-solid fa-eye me-2"></i> Mostrar marcadores
-                </button>
-                <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleHideAllMarkers}>
+                <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleToggleMarkers} > <i className={`fa-solid ${showAllMarkers ? 'fa-eye-slash' : 'fa-eye'} me-2`}></i> {showAllMarkers ? 'Quitar marcadores' : 'Mostrar marcadores'} </button>
+                {/* <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleHideAllMarkers}>
                     <i className="fa-solid fa-eye-slash me-2"></i> Quitar marcadores
                 </button> */}
-                <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleToggleMarkers} > <i className={`fa-solid ${showAllMarkers ? 'fa-eye-slash' : 'fa-eye'} me-2`}></i> {showAllMarkers ? 'Quitar marcadores' : 'Mostrar marcadores'} </button>
+                {
+                    shipment.id > 0 
+                    ?   <button className="px-4 py-2 font-medium text-[#dc3545] border-[#dc3545] hover:bg-[#dc3545] hover:border-[#dc3545] hover:text-white active:bg-[#dc3545] rounded-lg duration-150" 
+                            onClick={handleEndShipment}>
+                            <i className="fa-solid fa-square me-2"></i> Finalizar envío
+                        </button>
+                    : <p></p>
+                }
+                
             </div>
             
             <div className="flex flex-grow overflow-hidden">

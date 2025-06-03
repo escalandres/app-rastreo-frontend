@@ -29,6 +29,7 @@
     "react-router-dom": "^6.26.2",
     "react-toastify": "^10.0.5",
     "sweetalert2": "^11.6.13",
+    "sweetalert2-react-content": "^5.1.0",
     "typescript": "^5.8.2",
     "vte": "^1.0.0"
   },

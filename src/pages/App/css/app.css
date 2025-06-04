@@ -44,14 +44,14 @@
 }
 
 .column-20 {
-  flex: 0 0 21%; /* La columna ocupará el 40% del ancho del contenedor */
+  flex: 0 0 23%; /* La columna ocupará el 40% del ancho del contenedor */
   padding: 10px;
   background-color: #f8f9fa;
   border: 0px solid #ccc;
 }
 
 .column-80 {
-  flex: 0 0 79%; /* La columna ocupará el 60% del ancho del contenedor */
+  flex: 0 0 77%; /* La columna ocupará el 60% del ancho del contenedor */
   padding: 10px;
   background-color: #f8f9fa;
   border: 0px solid #ccc;

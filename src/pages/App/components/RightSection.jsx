@@ -172,10 +172,10 @@ const RightSection = ({ container, token }) => {
             </div>
             
             <div className="flex flex-grow overflow-hidden">
-                <div className="w-4/5 h-full no-padding flex flex-col">
+                <div className="w-4/6 h-full no-padding flex flex-col">
                     <MapItem zoom={zoom} center={center} showMarkers={showAllMarkers} markers={markers} isCellTower={isCellTower} radius={radius} />
                 </div>
-                <div className="w-1/5 h-full no-padding flex flex-col">
+                <div className="w-2/6 h-full no-padding flex flex-col">
                     <MarkerContainer shipment={shipment} width={40} height={40} onItemClick={handleItemClick} />
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import EditTracker from './EditTracker';
+import BatteryIcon from './BatteryIcon';
 import { convertirFecha } from '../js/app';
 import '../css/app.css';
 
@@ -13,9 +14,12 @@ const ScrollContainer = ({ items, width, height, onItemClick, token }) => {
               <img width={width} height={height} src={item.img.src} alt={item.img.alt} className="" />
             </div>
             <div className="w-2/3 p-4 flex flex-col text-left">
-              <p className="mb-2 text-xs">Contenedor: {item.id}</p>
+              {/* <p className="mb-2 text-xs">Contenedor: {item.id}</p> */}
               <p className="mb-2 font-bold">{item.nickname}</p>
               <p className="mb-2 text-xs">Vinculado: { convertirFecha(item.linking_date)}</p>
+              <div className="mb-2">
+                <BatteryIcon percentage={item.battery_percentage} />
+              </div>
               {/* <p>Texto 3</p> */}
               <EditTracker tracker={item} token={token} />
             </div>

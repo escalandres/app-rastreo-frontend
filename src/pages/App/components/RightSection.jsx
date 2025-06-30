@@ -128,7 +128,7 @@ const RightSection = ({ container, token }) => {
     async function terminarEnvio(){
         try {
             showLoader();
-            const queryParams = new URLSearchParams({ shipmentId: shipment.id }).toString();
+            const queryParams = new URLSearchParams({ shipmentId: shipment.id, trackerId: shipment.trackerId }).toString();
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/end-shipment?${queryParams}`, {
                 method: 'PATCH',
                 headers: {
@@ -179,7 +179,7 @@ const RightSection = ({ container, token }) => {
                     <MarkerContainer shipment={shipment} width={40} height={40} onItemClick={handleItemClick} />
                 </div>
             </div>
-            </div>
+        </div>
         
     );
 }

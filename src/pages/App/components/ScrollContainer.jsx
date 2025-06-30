@@ -18,7 +18,7 @@ const ScrollContainer = ({ items, width, height, onItemClick, token }) => {
               <p className="mb-2 font-bold">{item.nickname}</p>
               <p className="mb-2 text-xs">Vinculado: { convertirFecha(item.linking_date)}</p>
               <div className="mb-2">
-                <BatteryIcon percentage={item.battery_percentage} />
+                <BatteryIcon percentage={item.battery_percentage.percentage} />
               </div>
               {/* <p>Texto 3</p> */}
               <EditTracker tracker={item} token={token} />

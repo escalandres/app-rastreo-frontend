@@ -34,7 +34,14 @@ const RegisterShipment = ({ containers, companies, token }) => {
             }
     
             setIsSubmitting(true);
-    
+            if(!tracker) {
+                alerta.autoError('Por favor, seleccione un rastreador.');
+                setIsSubmitting(false);
+                return;
+            }
+            let payload = { trackerID: tracker.trim(), companyID: company.trim(), serviceID: service.trim(), trackingCode: trackingCode.trim() };
+            console.log('Payload:', payload);
+
             try {
                 showLoader();
                 const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/start-shipment`, {
@@ -105,6 +112,23 @@ const RegisterShipment = ({ containers, companies, token }) => {
                                 Una vez hecho, podrá gestionar y monitorear la ubicación de su(s) dispositivo(s).
                                 </p>
                             </Dialog.Description>
+                            <div className="flex items-center gap-4 mb-2">
+                                <div className="w-full">
+                                    <fieldset className="Fieldset relative text-left">
+                                        <label htmlFor="trackers" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Rastreadores</label>
+                                        <select id="trackers" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 "
+                                            onChange={(e) => setTracker(e.target.value)} required
+                                        >
+                                            <option value="">Seleccione un rastreador</option>
+                                            {
+                                                containers && containers.length > 0 && containers.map((tracker, index) => (
+                                                    <option key={index} value={tracker.id}>{tracker.nickname}</option>
+                                                ))
+                                            }
+                                        </select>
+                                    </fieldset>
+                                </div>
+                            </div>
                             <div className="flex items-center gap-4 mb-2">
                                 <fieldset className="Fieldset relative text-left">
                                     <label htmlFor="companies" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Empresas de paquetería</label>
@@ -177,23 +201,6 @@ const RegisterShipment = ({ containers, companies, token }) => {
                             </div> */}
                             <div className="flex items-center gap-4 mb-2">
                                 <div className="w-full">
-                                    <fieldset className="Fieldset relative text-left">
-                                        <label htmlFor="trackers" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Rastreadores</label>
-                                        <select id="trackers" className="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 "
-                                            onChange={(e) => setTracker(e.target.value)}
-                                        >
-                                            <option value="">Seleccione un rastreador</option>
-                                            {
-                                                containers && containers.length > 0 && containers.map((tracker, index) => (
-                                                    <option key={index} value={tracker.id}>{tracker.nickname}</option>
-                                                ))
-                                            }
-                                        </select>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4 mb-2">
-                                <div className="w-full">
                                     <fieldset className="Fieldset w-full text-left">
                                         <label htmlFor="countries" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">Guía de rastreo</label>
                                         <fieldset className="Fieldset relative">
@@ -217,7 +224,7 @@ const RegisterShipment = ({ containers, companies, token }) => {
                                             <input
                                                 className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                                                 onChange={(e) => setTrackingCode(e.target.value)}
-                                                placeholder="Ingrese el código y/o guía de rastreo"
+                                                placeholder="Ingrese el código y/o guía de rastreo" disabled={!selectedCompany}
                                             />
                                         </fieldset>
                                     </fieldset>

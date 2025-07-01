@@ -150,6 +150,67 @@ const RightSection = ({ container, token }) => {
         }
     }
 
+    async function handleUpdateShipment(){
+
+        Swal.fire({
+            title: 'Ingresa los datos',
+            html:
+                '<select id="swal-select" class="bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 ">' +
+                    '<option value="" disabled selected>Elige una opción</option>' +
+                    '<option value="DHL">DHL</option>' +
+                    '<option value="FedEx">FedEx</option>' +
+                    '<option value="Estafeta">Estafeta</option>' +
+                '</select>' +
+                '<input id="swal-input2" class="w-full mt-4 pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg" placeholder="Ingrese el código y/o guía de rastreo">',
+            focusConfirm: false,
+            preConfirm: () => {
+                const company = document.getElementById('swal-select').value;
+                const trackingCode = document.getElementById('swal-input2').value;
+                if (!company || !trackingCode) {
+                    Swal.showValidationMessage('Por favor completa ambos campos');
+                    return false;
+                }
+                return { company, trackingCode };
+            }
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    alert("hola");
+                    let response = await ingresarGuiaRastreo(result.value.company, result.value.trackingCode);
+                    if(response.success){
+                        alerta.autoSuccess(response.message);
+                        window.location.reload();
+                    }
+
+                    alerta.error(response.message);
+                }
+            });
+    }
+
+    async function ingresarGuiaRastreo(company, trackingCode) {
+        try {
+            showLoader();
+            const queryParams = new URLSearchParams({ shipmentId: shipment.id, company: company, newTrackingCode: trackingCode }).toString();
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/update-shipment?${queryParams}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (!response.ok) {
+                alerta.error('No se pudo obtener la información de envío de este rastreador. Inténtelo nuevamente.');
+            } else {
+                const data = await response.json();
+
+                return data;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        } finally{
+            hideLoader();
+        }
+    }
+
     return (
         <div className="flex flex-col h-full">
             <h1 className="text-left text-lg font-bold mb-4">Ubicación del envío</h1>
@@ -161,6 +222,14 @@ const RightSection = ({ container, token }) => {
                     <i className="fa-solid fa-eye-slash me-2"></i> Quitar marcadores
                 </button> */}
                 {
+                    shipment.shipment_data.tracking_number === "" & shipment.id > 0 
+                    ?   <button className="px-4 py-2 font-medium text-[#FE7600] border-[#FE7600] hover:bg-[#FE7600] hover:border-[#FE7600] hover:text-white active:bg-[#FE7600] rounded-lg duration-150" 
+                            onClick={handleUpdateShipment}>
+                            <i className="fa-solid fa-pen-to-square me-2"></i> Ingresar guía de rastreo
+                        </button>
+                    : <p></p>
+                }
+                {
                     shipment.id > 0 
                     ?   <button className="px-4 py-2 font-medium text-[#dc3545] border-[#dc3545] hover:bg-[#dc3545] hover:border-[#dc3545] hover:text-white active:bg-[#dc3545] rounded-lg duration-150" 
                             onClick={handleEndShipment}>
@@ -168,7 +237,6 @@ const RightSection = ({ container, token }) => {
                         </button>
                     : <p></p>
                 }
-                
             </div>
             
             <div className="flex flex-grow overflow-hidden">

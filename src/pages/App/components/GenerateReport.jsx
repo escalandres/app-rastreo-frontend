@@ -99,6 +99,7 @@ const GenerateReport = ({ container }) => {
                 alerta.autoError('Error al iniciar el envío. Inténtelo nuevamente.');
             } else {
                 const data = await response.json();
+                alert('El reporte se ha generado correctamente. La descarga comenzará en breve.');
                 console.log('data', data);
                 handleDownload(data.file);
                 // data.success ? alerta.autoSuccess(data.message) : alerta.autoError(data.message);

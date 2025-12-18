@@ -7,8 +7,8 @@ const ProfileDropDown = ({propClass, token}) => {
     const profileRef = useRef()
 
     const navigation = [
-        { title: "Settings", path: "/app/settings" },
-        { title: "Log out", path: "/app/logout" },
+        { title: "Settings", path: "/app/settings", icon: "fa-sliders" },
+        { title: "Log out", path: "/app/logout", icon: "fa-right-from-bracket" },
     ]
     
     useEffect(() => {
@@ -39,6 +39,7 @@ const ProfileDropDown = ({propClass, token}) => {
                     navigation.map((item, idx) => (
                         <li key={idx}>
                             <a className="block text-gray-600 hover:bg-gray-50 hover:text-gray-800 lg:p-2.5" href={item.path}>
+                                <i className={`fa-solid ${item.icon} me-2`}></i>
                                 {item.title}
                             </a>
                         </li>

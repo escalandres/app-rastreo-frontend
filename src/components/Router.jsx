@@ -59,7 +59,11 @@ const Router = createBrowserRouter(
       {
         path: "/auth/linkedin/callback",
         element: <LinkedInCallback />,
-      }
+      },
+      // {
+      //   path: "/app/duracion-bateria",
+      //   element: <DuracionBateria />,
+      // }
     ]
   );
 

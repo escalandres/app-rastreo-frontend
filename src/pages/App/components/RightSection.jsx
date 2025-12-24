@@ -34,8 +34,7 @@ const RightSection = ({ container, token }) => {
 
     const [markers, setMarkers] = React.useState(shipment);
     const containerRef = React.useRef(container.id);
-    // console.log('containerRef', containerRef.current);
-    // console.log('container', container);
+
     React.useEffect(() => { 
         const getContainerCurrentShipment = async (trackerID) => {
             try {
@@ -55,6 +54,7 @@ const RightSection = ({ container, token }) => {
                     // console.log(response);
                     // console.log(data);
                     setShipment(data.result);
+                    setMarkers(shipment);
                     setIsConsultingShipment(false);
                 }
             } catch (error) {
@@ -69,7 +69,7 @@ const RightSection = ({ container, token }) => {
                 getContainerCurrentShipment(container.id);
             }
         } 
-    }, [container, isConsultingShipment, token]);
+    }, [container, isConsultingShipment, token, shipment]);
 
     const handleItemClick = (coordenadas, aumento, esTorreCelular, radio) => {
         setCenter(coordenadas);
@@ -101,10 +101,6 @@ const RightSection = ({ container, token }) => {
             cancelButtonColor: "#3085d6",
             confirmButtonText: "Finalizar",
             cancelButtonText: "Cancelar",
-            // didOpen: () => {
-            //     // `MySwal` is a subclass of `Swal` with all the same instance & static methods
-            //     MySwal.showLoading()
-            // },
         }).then(async (result) => {
             if (result.isConfirmed) {
                 if(shipment.delivery_date !== null) return MySwal.fire(<p>El envío ya ha finalizado</p>)
@@ -113,8 +109,9 @@ const RightSection = ({ container, token }) => {
                     alerta.autoSuccess(response.message);
                     window.location.reload();
                 }
-
-                alerta.error(response.message);
+                else{
+                    alerta.error(response.message);
+                }
 
             } else if (result.isDismissed) {
                 // Si cancelaron o cerraron la alerta
@@ -218,27 +215,24 @@ const RightSection = ({ container, token }) => {
                 <ShowTimeline shipment_status={shipment.shipment_status} />
                 <GenerateReport container={container} />
                 <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleToggleMarkers} > <i className={`fa-solid ${showAllMarkers ? 'fa-eye-slash' : 'fa-eye'} me-2`}></i> {showAllMarkers ? 'Quitar marcadores' : 'Mostrar marcadores'} </button>
-                {/* <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleHideAllMarkers}>
-                    <i className="fa-solid fa-eye-slash me-2"></i> Quitar marcadores
-                </button> */}
                 {
-                    shipment.shipment_data.tracking_number === "" & shipment.id > 0 
-                    ?   <button className="px-4 py-2 font-medium text-[#FE7600] border-[#FE7600] hover:bg-[#FE7600] hover:border-[#FE7600] hover:text-white active:bg-[#FE7600] rounded-lg duration-150" 
+                    shipment.shipment_data.tracking_number === "" && shipment.id > 0 && ( <button className="px-4 py-2 font-medium text-[#FE7600] border-[#FE7600] hover:bg-[#FE7600] hover:border-[#FE7600] hover:text-white active:bg-[#FE7600] rounded-lg duration-150" 
                             onClick={handleUpdateShipment}>
                             <i className="fa-solid fa-pen-to-square me-2"></i> Ingresar guía de rastreo
                         </button>
-                    : <p></p>
+                    )
                 }
                 {
-                    shipment.id > 0 
-                    ?   <button className="px-4 py-2 font-medium text-[#dc3545] border-[#dc3545] hover:bg-[#dc3545] hover:border-[#dc3545] hover:text-white active:bg-[#dc3545] rounded-lg duration-150" 
-                            onClick={handleEndShipment}>
+                    shipment.id > 0 && !!shipment.delivery_date && (
+                        <button
+                            className="px-4 py-2 font-medium text-[#dc3545] border-[#dc3545] hover:bg-[#dc3545] hover:border-[#dc3545] hover:text-white active:bg-[#dc3545] rounded-lg duration-150"
+                            onClick={handleEndShipment}
+                        >
                             <i className="fa-solid fa-square me-2"></i> Finalizar envío
                         </button>
-                    : <p></p>
+                    )
                 }
             </div>
-            
             <div className="flex flex-grow overflow-hidden">
                 <div className="w-4/6 h-full no-padding flex flex-col">
                     <MapItem zoom={zoom} center={center} showMarkers={showAllMarkers} markers={markers} isCellTower={isCellTower} radius={radius} />

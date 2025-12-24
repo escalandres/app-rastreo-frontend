@@ -61,13 +61,10 @@ const Header = ({ token }) => {
     const [menuState, setMenuState] = useState(false)
 
     // Replace javascript:void(0) path with your path
-    // const navigation = [
-    //     { title: "Customers", path: "javascript:void(0)" },
-    //     { title: "Careers", path: "javascript:void(0)" },
-    //     { title: "Guides", path: "javascript:void(0)" },
-    //     { title: "Partners", path: "javascript:void(0)" },
-    // ]
-    const navigation = []
+    const navigation = [
+        { title: "Guía rastreador", path: "javascript:void(0)" }
+    ]
+    // const navigation = []
     return (
         <nav className="bg-white border-b">
             <div className="flex items-center space-x-8 py-3 px-4 max-w-screen-xl mx-auto md:px-8">

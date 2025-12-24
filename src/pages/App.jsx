@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode'; // Esto puede ser incorrecto, asegúrate
 import RightSection from './App/components/RightSection';
 
 const App = () => {
-    const [container, setContainer] = useState('');
+    const [container, setContainer] = useState(null);
     const [containers, setContainers] = useState([]);
     const [companies, setCompanies] = useState([]);
     const isRequesting = useRef(false); // Usar ref en lugar de state para evitar renderizados innecesarios
@@ -62,9 +62,13 @@ const App = () => {
                 <div className="column-20">
                     <LeftSection setContainer={setContainer} containers={containers} companies={companies} />
                 </div>
-                <div className="column-80">
-                    <RightSection token={token} container={container} />
-                </div>
+                {
+                    container && (
+                        <div className="column-80">
+                            <RightSection token={token} container={container} />
+                        </div>
+                    )
+                }
             </div>
         </div>
     );

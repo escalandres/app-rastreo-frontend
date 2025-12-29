@@ -35,9 +35,9 @@ const ScrollContainer = ({ items, width, height, onItemClick, token }) => {
 
 // Validación de las propiedades
 ScrollContainer.propTypes = {
-    items: PropTypes.node.isRequired,  // Valida que children sea un nodo de React y sea requerido
-    width: PropTypes.number.isRequired,  // Valida que children sea un nodo de React y sea requerido
-    height: PropTypes.number.isRequired,  // Valida que children sea un nodo de React y sea requerido
+    items: PropTypes.array.isRequired,  // Valida que items sea un array y sea requerido
+    width: PropTypes.number.isRequired,  // Valida que width sea un número y sea requerido
+    height: PropTypes.number.isRequired,  // Valida que height sea un número y sea requerido
     onItemClick: PropTypes.func.isRequired, // Añadir validación para la función
     token: PropTypes.string.isRequired, // Añadir validación para el token
 };

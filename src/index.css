@@ -110,3 +110,11 @@ button:focus-visible {
     background-color: #213547;
   }
 }
+
+.gm-ui-hover-effect span {
+  mask-size: cover !important;
+  -webkit-mask-size: cover !important;
+  mask-repeat: no-repeat !important;
+  -webkit-mask-repeat: no-repeat !important;
+  background-color: #000 !important; /* color del ícono */
+}

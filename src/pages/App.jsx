@@ -16,7 +16,7 @@ const App = () => {
     const decoded = jwtDecode(token);
 
     const getUserContainers = useCallback(async () => {
-        console.log('Obteniendo contenedores de usuario'); 
+        // console.log('Obteniendo contenedores de usuario'); 
         showLoader();
         if (!isRequesting.current) { 
             isRequesting.current = true
@@ -41,13 +41,14 @@ const App = () => {
             } finally {
                 hideLoader();
             }
-        } else { console.log('Solicitud en progreso, no se ejecuta la función'); return { user_containers: [], shipment_companies: [] }; }
+        } else { 
+            return { user_containers: [], shipment_companies: [] }; }
     }, [token]);
 
     useEffect(() => {
         const fetchData = async () => {
             const results = await getUserContainers();
-            console.log('results', results);
+            // console.log('results', results);
             setContainers(results.user_containers);
             setCompanies(results.shipment_companies);
         };

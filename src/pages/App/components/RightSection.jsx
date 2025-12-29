@@ -14,7 +14,6 @@ const RightSection = ({ container, token }) => {
     const [zoom, setZoom] = React.useState();
     const [isCellTower, setIsCellTower] = React.useState();
     const [radius, setRadius] = React.useState();
-    const [isConsultingShipment, setIsConsultingShipment] = React.useState(false);
     const [showAllMarkers, setShowAllMarkers] = React.useState(false);
 
     const [shipment, setShipment] = React.useState({
@@ -32,44 +31,50 @@ const RightSection = ({ container, token }) => {
         shipment_status: []
     });
 
-    const [markers, setMarkers] = React.useState(shipment);
-    const containerRef = React.useRef(container.id);
+    const [markers, setMarkers] = React.useState(shipment.locations || []);
 
-    React.useEffect(() => { 
-        const getContainerCurrentShipment = async (trackerID) => {
+    const containerRef = React.useRef(null);
+
+    React.useEffect(() => {
+        if (!container?.id) return;
+
+        // Evitar llamadas duplicadas
+        if (containerRef.current === container.id) return;
+
+        containerRef.current = container.id;
+
+        const getContainerCurrentShipment = async () => {
             try {
                 showLoader();
-                const queryParams = new URLSearchParams({ trackerID: trackerID }).toString();
-                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/get-shipment-data?${queryParams}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
+
+                const response = await fetch(
+                    `${import.meta.env.VITE_BACKEND_URL}/app/shipments/${container.id}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
                     }
-                });
+                );
+
                 hideLoader();
+
                 if (!response.ok) {
                     alerta.error('No se pudo obtener la información de envío de este rastreador. Inténtelo nuevamente.');
-                } else {
-                    const data = await response.json();
-                    // console.log(response);
-                    // console.log(data);
-                    setShipment(data.result);
-                    setMarkers(shipment);
-                    setIsConsultingShipment(false);
+                    return;
                 }
+
+                const data = await response.json();
+
+                setShipment(data.result);
+                setMarkers(data.result.locations); // usar el valor correcto
             } catch (error) {
                 console.error('Error:', error);
             }
         };
 
-        if (container.id !== '' && containerRef.current !== container.id) {
-            containerRef.current = container.id;
-            if (!isConsultingShipment) {
-                setIsConsultingShipment(true);
-                getContainerCurrentShipment(container.id);
-            }
-        } 
-    }, [container, isConsultingShipment, token, shipment]);
+        getContainerCurrentShipment();
+    }, [container?.id, token]);
 
     const handleItemClick = (coordenadas, aumento, esTorreCelular, radio) => {
         setCenter(coordenadas);
@@ -125,8 +130,7 @@ const RightSection = ({ container, token }) => {
     async function terminarEnvio(){
         try {
             showLoader();
-            const queryParams = new URLSearchParams({ shipmentId: shipment.id, trackerId: shipment.trackerId }).toString();
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/end-shipment?${queryParams}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/shipments/end/${shipment.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -186,14 +190,15 @@ const RightSection = ({ container, token }) => {
     async function ingresarGuiaRastreo(company, trackingCode) {
         try {
             showLoader();
-            const queryParams = new URLSearchParams({ shipmentId: shipment.id, company: company, newTrackingCode: trackingCode }).toString();
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/update-shipment?${queryParams}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/shipments/change-tracking-code/${shipment.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`
-                }
+                },
+                body: JSON.stringify({
+                    shipmentId: shipment.id, company: company, newTrackingCode: trackingCode
+                })
             });
-            
             if (!response.ok) {
                 alerta.error('No se pudo obtener la información de envío de este rastreador. Inténtelo nuevamente.');
             } else {
@@ -223,7 +228,7 @@ const RightSection = ({ container, token }) => {
                     )
                 }
                 {
-                    shipment.id > 0 && !!shipment.delivery_date && (
+                    shipment.id > 0 && !shipment.delivery_date && (
                         <button
                             className="px-4 py-2 font-medium text-[#dc3545] border-[#dc3545] hover:bg-[#dc3545] hover:border-[#dc3545] hover:text-white active:bg-[#dc3545] rounded-lg duration-150"
                             onClick={handleEndShipment}

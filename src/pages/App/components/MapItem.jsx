@@ -6,10 +6,11 @@ import { Circle } from './map-components/circle.tsx';
 const MapItem = ({ center, zoom, showMarkers, markers, isCellTower,radius }) => {
     const initialCenter = { lat: 23.9475222, lng: -99.4789187 };
     const [isFreeMode, setIsFreeMode] = React.useState(false);
+    const [showInfoWindow, setShowInfoWindow] = React.useState(true);
     const centerRef = React.useRef(center);
     React.useEffect(() => { if (centerRef.current !== center) { centerRef.current = center; setIsFreeMode(false); } }, [center, zoom]);
 
-    const handleMapClick = (event) => {
+    const handleMapClick = () => {
         // console.log(event);
         // const newCenter = {
         //     lat: event.detail.latLng.lat,
@@ -40,7 +41,9 @@ const MapItem = ({ center, zoom, showMarkers, markers, isCellTower,radius }) => 
                         })
                         :   isCellTower ? (
                                 <>
-                                    <InfoWindow position={center}>
+                                    <InfoWindow position={center}
+                                        onCloseClick={() => setShowInfoWindow(false)}
+                                    >
                                         <div>El dispositivo se encuentra dentro de esta zona, en un radio de { radius/ 1000} km.</div>
                                     </InfoWindow>
                                     <Circle

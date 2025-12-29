@@ -87,7 +87,7 @@ const GenerateReport = ({ container }) => {
             showLoader();
             const selectedShipment = document.getElementById('shipments').value;
             console.log('selectedShipment', selectedShipment);
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/generate-reporte-seguimiento?shipmentId=${selectedShipment}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/reports/reporte-seguimiento?shipmentId=${selectedShipment}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

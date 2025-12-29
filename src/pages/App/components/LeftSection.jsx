@@ -37,7 +37,21 @@ const LeftSection = ({ setContainer, containers, companies }) => {
                 <AddTracker token={token}/>
                 <RegisterShipment companies={empresas} containers={trackers} token={token}/>
             </div>
-            <ScrollContainer items={trackers} token={token} width={100} height={30} onItemClick={handleItemClick} />
+            {
+                trackers.length > 0 ? (
+                    <ScrollContainer
+                        items={trackers}
+                        token={token}
+                        width={100}
+                        height={30}
+                        onItemClick={handleItemClick} 
+                    />
+                ) : (
+                    <p className="text-left text-sm mb-4">
+                        No tienes rastreadores. Agrega uno para comenzar a rastrear tus envíos.
+                    </p>
+                )
+            }
         </div>
     );
 }

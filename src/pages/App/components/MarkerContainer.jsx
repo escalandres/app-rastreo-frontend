@@ -42,7 +42,7 @@ const MarkerContainer = ({ shipment, width, height, onItemClick }) => {
 
 // Validación de las propiedades
 MarkerContainer.propTypes = {
-    shipment: PropTypes.array.isRequired,
+    shipment: PropTypes.object.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     onItemClick: PropTypes.func.isRequired, // Añadir validación para la función

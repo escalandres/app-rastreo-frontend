@@ -64,7 +64,7 @@ const Header = ({ token }) => {
 
     // Replace javascript:void(0) path with your path
     const navigation = [
-        { title: "Manual rastreador", path: "/app/manual" }
+        { title: "Manual rastreador", path: "/app/manual-rastreadores" }
     ]
     // const navigation = []
     return (

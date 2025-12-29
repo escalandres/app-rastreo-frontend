@@ -6,8 +6,15 @@
     "module": "esnext",
     "strict": true,
     "esModuleInterop": true,
-    "outDir": "dist",        // <--- ESTA ES LA CLAVE
-    "rootDir": "src"         // <--- Opcional pero recomendado
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

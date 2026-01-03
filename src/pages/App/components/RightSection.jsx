@@ -12,7 +12,7 @@ import GenerateReport from './GenerateReport';
 const RightSection = ({ container, token }) => {
     const [center, setCenter] = React.useState();
     const [zoom, setZoom] = React.useState();
-    const [isCellTower, setIsCellTower] = React.useState();
+    const [source, setSource] = React.useState();
     const [radius, setRadius] = React.useState();
     const [showAllMarkers, setShowAllMarkers] = React.useState(false);
 
@@ -76,10 +76,10 @@ const RightSection = ({ container, token }) => {
         getContainerCurrentShipment();
     }, [container?.id, token]);
 
-    const handleItemClick = (coordenadas, aumento, esTorreCelular, radio) => {
+    const handleItemClick = (coordenadas, aumento, source, radio) => {
         setCenter(coordenadas);
         setZoom(aumento);
-        setIsCellTower(esTorreCelular);
+        setSource(source);
         setRadius(radio);
     };
 
@@ -175,13 +175,13 @@ const RightSection = ({ container, token }) => {
             }
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    let response = await ingresarGuiaRastreo(result.value.company, result.value.trackingCode);
-                    if(response.success){
-                        alerta.autoSuccess(response.message);
+                    let success = await ingresarGuiaRastreo(result.value.company, result.value.trackingCode);
+                    if(success){
+                        alerta.autoSuccess("Guía de rastreo actualizada con éxito.");
                         window.location.reload();
+                    }else{
+                        alerta.error("No se pudo actualizar la guía de rastreo. Inténtelo nuevamente.");
                     }
-
-                    alerta.error(response.message);
                 }
             });
     }
@@ -189,28 +189,20 @@ const RightSection = ({ container, token }) => {
     async function ingresarGuiaRastreo(company, trackingCode) {
         try {
             showLoader();
-            console.log("shioment", {
-                shipmentId: shipment.id, company: company, newTrackingCode: trackingCode
-            })
-            alert("Aquí se enviaría la información al servidor");
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/shipments/change-tracking-code/${shipment.id}`, {
                 method: 'PATCH',
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     shipmentId: shipment.id, company: company, newTrackingCode: trackingCode
                 })
             });
-            if (!response.ok) {
-                alerta.error('No se pudo obtener la información de envío de este rastreador. Inténtelo nuevamente.');
-            } else {
-                const data = await response.json();
-
-                return data;
-            }
+            return response.ok;
         } catch (error) {
             console.error('Error:', error);
+            return false;
         } finally{
             hideLoader();
         }
@@ -243,7 +235,7 @@ const RightSection = ({ container, token }) => {
             </div>
             <div className="flex flex-grow overflow-hidden">
                 <div className="w-4/6 h-full no-padding flex flex-col">
-                    <MapItem zoom={zoom} center={center} showMarkers={showAllMarkers} markers={markers} isCellTower={isCellTower} radius={radius} />
+                    <MapItem zoom={zoom} center={center} showMarkers={showAllMarkers} markers={markers} source={source} radius={radius} />
                 </div>
                 <div className="w-2/6 h-full no-padding flex flex-col">
                     <MarkerContainer shipment={shipment} width={40} height={40} onItemClick={handleItemClick} />

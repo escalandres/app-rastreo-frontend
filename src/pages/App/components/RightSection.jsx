@@ -175,7 +175,6 @@ const RightSection = ({ container, token }) => {
             }
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    alert("hola");
                     let response = await ingresarGuiaRastreo(result.value.company, result.value.trackingCode);
                     if(response.success){
                         alerta.autoSuccess(response.message);
@@ -190,6 +189,10 @@ const RightSection = ({ container, token }) => {
     async function ingresarGuiaRastreo(company, trackingCode) {
         try {
             showLoader();
+            console.log("shioment", {
+                shipmentId: shipment.id, company: company, newTrackingCode: trackingCode
+            })
+            alert("Aquí se enviaría la información al servidor");
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/app/shipments/change-tracking-code/${shipment.id}`, {
                 method: 'PATCH',
                 headers: {

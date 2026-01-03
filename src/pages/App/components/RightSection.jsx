@@ -221,7 +221,7 @@ const RightSection = ({ container, token }) => {
                 <GenerateReport container={container} />
                 <button className="px-4 py-2 font-medium text-[#4f46e5] border-[#4f46e5] hover:bg-indigo-500 hover:text-white active:bg-indigo-600 rounded-lg duration-150" onClick={handleToggleMarkers} > <i className={`fa-solid ${showAllMarkers ? 'fa-eye-slash' : 'fa-eye'} me-2`}></i> {showAllMarkers ? 'Quitar marcadores' : 'Mostrar marcadores'} </button>
                 {
-                    shipment.shipment_data.tracking_number === "" && shipment.id > 0 && ( <button className="px-4 py-2 font-medium text-[#FE7600] border-[#FE7600] hover:bg-[#FE7600] hover:border-[#FE7600] hover:text-white active:bg-[#FE7600] rounded-lg duration-150" 
+                    shipment.shipment_data.tracking_number === "" && !shipment.delivery_date && shipment.id > 0 && ( <button className="px-4 py-2 font-medium text-[#FE7600] border-[#FE7600] hover:bg-[#FE7600] hover:border-[#FE7600] hover:text-white active:bg-[#FE7600] rounded-lg duration-150" 
                             onClick={handleUpdateShipment}>
                             <i className="fa-solid fa-pen-to-square me-2"></i> Ingresar guía de rastreo
                         </button>

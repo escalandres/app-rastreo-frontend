@@ -29,11 +29,11 @@ export default function TrackerManual() {
     },
     {
       id: 2,
-      command: 'APN#NOMBRE',
-      description: 'Configura el APN del operador celular',
-      values: 'Texto (nombre del APN)',
-      example: 'APN#internet.itelcel.com',
-      details: 'Necesario para establecer la conexión de datos. Consulta con tu operador móvil el APN correcto.'
+      command: 'SETNUM',
+      description: 'Configura un numero de teléfono para recibir notificaciones',
+      values: 'Número de teléfono',
+      example: 'SETNUM#5512345678',
+      details: 'Define un número de teléfono autorizado para enviar comandos al rastreador.'
     },
     {
       id: 3,

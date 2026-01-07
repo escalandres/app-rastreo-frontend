@@ -21,68 +21,92 @@ export default function TrackerManual() {
   const smsCommands = [
     {
       id: 1,
-      command: 'INTERVALO#MINUTOS',
-      description: 'Configura el intervalo de envío de datos GPS',
-      values: '5-180 minutos',
-      example: 'INTERVALO#15',
-      details: 'Define cada cuántos minutos el rastreador enviará su posición al servidor. Valores más bajos consumen más batería.'
+      command: 'SET#NUM',
+      description: 'Configura un numero de teléfono para recibir notificaciones',
+      values: 'Número de teléfono',
+      example: 'SET#NUM=+525512345678',
+      details: 'Define un número de teléfono autorizado para recibir los comandos del rastreador y cualquier otra notificación.'
     },
     {
       id: 2,
-      command: 'SETNUM',
-      description: 'Configura un numero de teléfono para recibir notificaciones',
-      values: 'Número de teléfono',
-      example: 'SETNUM#5512345678',
-      details: 'Define un número de teléfono autorizado para enviar comandos al rastreador.'
+      command: 'SET#INTERVALO',
+      description: 'Configura el intervalo de activación del rastreador en modo Ahorro',
+      values: '{X} D (días), {X} H (horas), {X} M (minutos)',
+      example: 'SET#INTERVALO=15M',
+      details: 'Define el intervalo de activación para despertar al rastreador cuando este se encuentre en modo AHORRO.'
     },
     {
       id: 3,
-      command: 'SERVIDOR#IP#PUERTO',
-      description: 'Configura el servidor de destino',
-      values: 'IP: dirección IPv4, Puerto: 1-65535',
-      example: 'SERVIDOR#192.168.1.100#5000',
-      details: 'Define la dirección del servidor donde se enviarán los datos de posición.'
+      command: 'SET#MODO',
+      description: 'Configura e modo del rastreador para envío de datos',
+      values: 'AHORRO, OFF, CONTINUO',
+      example: 'SET#MODO=AHORRO',
+      details: 'Define si el rastreador se encuentra en modo AHORRO: menor consumo de batería. OFF: solo escucha comandos. o CONTINUO: envía datos cada 45 segundos, no ahorra energía.'
     },
     {
       id: 4,
-      command: 'MODO#TIPO',
-      description: 'Cambia el modo de operación',
-      values: 'NORMAL, AHORRO, CONTINUO',
-      example: 'MODO#AHORRO',
-      details: 'NORMAL: balance entre precisión y consumo. AHORRO: menor consumo de batería. CONTINUO: máxima frecuencia de actualización.'
+      command: 'SET#TIME',
+      description: 'Configura manualmente la fecha y hora del rastreador',
+      values: 'YYYY-MM-DD HH:MM:SS',
+      example: 'SET#TIME=2024-01-01 12:00:00',
+      details: 'Solo es necesario si el rastreador no puede obtener la hora vía GPS ni por la red celular. Se notifica con el rastreador en modo SEGURO. Asegúrate de usar el formato correcto.'
     },
     {
       id: 5,
-      command: 'UBICACION',
-      description: 'Solicita la ubicación actual',
-      values: 'Sin parámetros',
-      example: 'UBICACION',
-      details: 'El rastreador responde inmediatamente con su posición GPS actual vía SMS.'
+      command: 'SET#RTC',
+      description: 'Actualiza la fecha y hora del rastreador vía GPS o red celular',
+      values: 'SYNC',
+      example: 'SET#RTC=SYNC',
+      details: 'El rastreador actualiza automáticamente la fecha y hora vía GPS o red celular.'
     },
     {
       id: 6,
-      command: 'BATERIA',
-      description: 'Consulta el nivel de batería',
+      command: 'GET#CONFIG',
+      description: 'Consulta la configuración actual del rastreador',
       values: 'Sin parámetros',
-      example: 'BATERIA',
-      details: 'Responde con el porcentaje de batería restante.'
+      example: 'GET#CONFIG',
+      details: 'Responde con la configuración actual del rastreador ingresada por el usuario.'
     },
     {
       id: 7,
+      command: 'GET#STATUS',
+      description: 'Obtiene el estado completo del dispositivo',
+      values: 'Sin parámetros',
+      example: 'GET#STATUS',
+      details: 'Responde con información completa: batería, señal GPS, señal celular, modo de operación, etc.'
+    },
+    {
+      id: 8,
+      command: 'GET#LOCATION',
+      description: 'Obtiene la ubicación actual del dispositivo',
+      values: 'Sin parámetros',
+      example: 'GET#LOCATION',
+      details: 'Responde con la ubicación actual del rastreador vía GPS y la torre celular a la que está conectado.'
+    },
+    {
+      id: 9,
+      command: 'GET#TIMECELL',
+      description: 'Obtiene la fecha y hora del rastreador',
+      values: 'Sin parámetros',
+      example: 'GET#TIMECELL',
+      details: 'Obtiene la fecha y hora del rastreador vía red celular.'
+    },
+    {
+      id: 10,
+      command: 'BATERIA',
+      description: 'Obtiene el porcentaje de batería del dispositivo',
+      values: 'Sin parámetros',
+      example: 'BATERIA',
+      details: 'Responde con el porcentaje de batería actual del rastreador.'
+    },
+    {
+      id: 11,
       command: 'RESET',
       description: 'Reinicia el dispositivo',
       values: 'Sin parámetros',
       example: 'RESET',
       details: 'Reinicia el rastreador. Útil para resolver problemas de conectividad.'
     },
-    {
-      id: 8,
-      command: 'STATUS',
-      description: 'Obtiene el estado completo del dispositivo',
-      values: 'Sin parámetros',
-      example: 'STATUS',
-      details: 'Responde con información completa: batería, señal GPS, señal celular, modo de operación, etc.'
-    }
   ];
 
   const sections = [
@@ -252,6 +276,11 @@ export default function TrackerManual() {
                   El rastreador responderá confirmando la configuración o indicando si hubo un error.
                 </p>
               </div>
+              <div className="mt-2 p-4 bg-red-50 border-l-4 border-red-500 rounded">
+                <p className="text-sm text-gray-700">
+                  <span className="font-semibold">Importante:</span> Todos los comandos deben llevar el PIN de autenticación para ser aceptados. Consulte el PIN de su rastreador en su Panel de control. <strong>Ej: PIN=12345;COMANDO</strong>
+                </p>
+              </div>
             </div>
 
             {/* Tabla de comandos */}
@@ -314,18 +343,18 @@ export default function TrackerManual() {
               <div className="border-l-4 border-indigo-500 pl-6">
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Especificaciones Técnicas</h3>
                 <ul className="space-y-2 text-gray-700">
-                  <li><span className="font-semibold">Chip GPS:</span> Módulo NEO-6M</li>
-                  <li><span className="font-semibold">Precisión GPS:</span> ±2.5 metros CEP</li>
-                  <li><span className="font-semibold">Módulo GSM:</span> SIM800L (2G)</li>
-                  <li><span className="font-semibold">Batería:</span> Li-ion 3.7V 2000mAh</li>
+                  <li><span className="font-semibold">Chip GPS:</span> Módulo NEO-M8N</li>
+                  <li><span className="font-semibold">Precisión GPS:</span> ±2.0 metros CEP</li>
+                  <li><span className="font-semibold">Módulo GPRS:</span> A7670SA (2G | 4G)</li>
+                  <li><span className="font-semibold">Batería:</span> Li-ion 3.7V 6000mAh</li>
                   <li><span className="font-semibold">Temperatura de operación:</span> -10°C a 60°C</li>
                   <li><span className="font-semibold">Dimensiones:</span> 85mm × 55mm × 25mm</li>
-                  <li><span className="font-semibold">Peso:</span> 120g (con batería)</li>
+                  <li><span className="font-semibold">Peso:</span> 500g (con batería)</li>
                 </ul>
               </div>
 
               {/* LED Indicadores */}
-              <div className="border-l-4 border-green-500 pl-6">
+              {/* <div className="border-l-4 border-green-500 pl-6">
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Indicadores LED</h3>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
@@ -350,18 +379,18 @@ export default function TrackerManual() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Recomendaciones */}
               <div className="border-l-4 border-orange-500 pl-6">
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Recomendaciones de Uso</h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Coloque el rastreador en un lugar con vista despejada al cielo para mejor recepción GPS</li>
+                  <li>Puede usar el rastreador en ambientes abiertos y cerrados. Mejor recepción GPS en ambientes abiertos</li>
                   <li>Evite cubrir completamente el dispositivo con materiales metálicos</li>
-                  <li>Cargue completamente la batería antes del primer uso</li>
-                  <li>Para máxima autonomía, configure intervalos de 1-2 horas</li>
+                  <li>Cargue completamente la batería antes de usarlo</li>
+                  <li>Para máxima autonomía, configure intervalos largos</li>
                   <li>Verifique la cobertura de red del operador en la zona de uso</li>
-                  <li>Actualice el APN según su operador móvil</li>
+                  <li>No use una tarjeta SIM incompatible o que tenga un PIN de bloqueo</li>
                 </ul>
               </div>
 
@@ -372,7 +401,7 @@ export default function TrackerManual() {
                   <div>
                     <p className="font-semibold text-gray-800">El rastreador no envía datos</p>
                     <p className="text-sm text-gray-600 mt-1">
-                      • Verifique que el APN esté configurado correctamente<br/>
+                      • Configure un número de telefono para recibir notificaciones<br/>
                       • Confirme que hay saldo y datos en el chip SIM<br/>
                       • Envíe el comando STATUS para verificar el estado
                     </p>
@@ -380,7 +409,7 @@ export default function TrackerManual() {
                   <div>
                     <p className="font-semibold text-gray-800">Posición GPS imprecisa</p>
                     <p className="text-sm text-gray-600 mt-1">
-                      • Espere 2-3 minutos para que el GPS obtenga señal<br/>
+                      • Espere 3-5 minutos para que el GPS obtenga señal<br/>
                       • Asegúrese de estar en un área con vista al cielo<br/>
                       • Evite usar en interiores o bajo estructuras metálicas
                     </p>

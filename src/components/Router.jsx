@@ -10,6 +10,7 @@ import Logout from './Logout';
 import ForgotPassword from '../pages/ForgotPassword';
 import ChangePassword from '../pages/ChangePassword';
 import TrackerManual from '../pages/TrackerManual';
+import QueryShipment from '../pages/QueryShipment';
 import GithubAuthorize from './GithubAuthMiddleware';
 import { LinkedInCallback } from 'react-linkedin-login-oauth2';
 
@@ -64,7 +65,11 @@ const Router = createBrowserRouter(
       {
         path: "/app/manual-rastreadores",
         element: <TrackerManual />,
-      }
+      },
+      {
+        path: "/app/consultar-paqueteria",
+        element: <QueryShipment />,
+      },
     ]
   );
 

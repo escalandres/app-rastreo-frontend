@@ -24,7 +24,6 @@ const GoogleA = () => {
         try {
             showLoader();
             console.log("response",oauth);
-            alert("ver consola")
             // const token = oauth.credential;
             const token = oauth.access_token;
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/auth/google`, {

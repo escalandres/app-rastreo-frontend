@@ -31,12 +31,19 @@ const ProfileDropDown = ({propClass, token}) => {
                         className="w-full h-full rounded-full"
                     />
                 </button>
-                <div className="lg:hidden">
-                    <span className="block">Micheal John</span>
-                    <span className="block text-sm text-gray-500">john@gmail.com</span>
-                </div>
+                {/* <div className="flex flex-col leading-tight">
+                    <span className="block">{token.user?.name}</span>
+                    <span className="block text-sm text-gray-500">{token.user?.email}</span>
+                </div> */}
             </div>
             <ul className={`bg-white z-50 top-12 right-0 mt-5 space-y-5 lg:absolute lg:border lg:rounded-md lg:text-sm lg:w-52 lg:shadow-md lg:space-y-0 lg:mt-0 ${state ? '' : 'lg:hidden'}`}>
+                <li className="p-4 border-b">
+                    
+                <div className="flex flex-col leading-tight">
+                    <span className="block text-sm text-gray-500">{token.user?.name}</span>
+                    <span className="block text-sm text-gray-500">{token.user?.email}</span>
+                </div>
+                </li>
                 {
                     navigation.map((item, idx) => (
                         <li key={idx}>

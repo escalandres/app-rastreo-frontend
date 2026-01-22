@@ -208,12 +208,25 @@ const GenerateReport = ({ container }) => {
                                         {
                                             shipments && shipments.length === 0 ? (
                                                 <option value="">No hay envíos disponibles</option>
+                                            ) : (
+                                                [...shipments]                     // copiamos el arreglo
+                                                    .sort((a, b) => new Date(b.start_date) - new Date(a.start_date))  // ordenamos por fecha descendente
+                                                    .map((item, index) => (
+                                                        <option key={index} value={item.id}>
+                                                            {item.id}
+                                                        </option>
+                                                    ))
+                                            )
+                                        }
+                                        {/* {
+                                            shipments && shipments.length === 0 ? (
+                                                <option value="">No hay envíos disponibles</option>
                                             ): (
                                                 shipments.map((item, index) => (
                                                     <option key={index} value={item.id}>{item.id}</option>
                                                 ))
                                             )
-                                        }
+                                        } */}
                                             {/* <option value="">Seleccione el envío</option>
                                             {
                                                 shipments && shipments.length > 0 && shipments.map((item, index) => (

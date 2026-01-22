@@ -61,9 +61,9 @@ const Login = () => {
                             <p className="">¿No tienes una cuenta? <a href="/registro" className="font-medium text-indigo-600 hover:text-indigo-500">Regístrate gratis</a></p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-3 gap-x-3">
+                    <div className="grid grid-cols-2 gap-x-2">
                         <GoogleAuth />
-                        <LinkedInAuth />
+                        {/* <LinkedInAuth /> */}
                         <GitHubAuth />
                     </div>
                     <div className="relative">
